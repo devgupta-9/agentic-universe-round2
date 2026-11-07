@@ -62,3 +62,33 @@ def test_supervisor_version_change_prevents_apply(tmp_path):
         gov.tick({"wf": WF}, 1000)
         assert gov.operation(pid)["state"] == "stale"
         assert api.writes == 0
+
+
+def test_kestrel_preferences_are_stricter_than_platform_policy(tmp_path):
+    from controller.store import minute
+    wf = copy.deepcopy(WF)
+    wf["tenant_id"] = "kestrel_finance"
+    api = WorldAPI()
+    target = copy.deepcopy(api.current["config"])
+    target["schedule"] = {"hour_weights": {"default": {"9": 1}}}
+    with Store(tmp_path / "state.sqlite3") as store:
+        gov = Governance(store, api)
+        assert gov.propose(wf, api.current, target, minute("2027-01-04T10:00:00+05:30"), "timing", "schedule", {}) is None
+        pid = gov.propose(wf, api.current, target, minute("2027-01-04T11:00:00+05:30"), "timing", "schedule", {})
+        assert gov.operation(pid)["mode"] == "approval"
+
+
+def test_success_is_reconciled_before_a_later_supervisor_version(tmp_path):
+    api = WorldAPI()
+    api.lose_response = True
+    target = copy.deepcopy(api.current["config"])
+    target["schedule"] = {"hour_weights": {"default": {"9": 1}}}
+    with Store(tmp_path / "state.sqlite3") as store:
+        gov = Governance(store, api)
+        pid = gov.propose(WF, api.current, target, 1000, "timing", "schedule", {})
+        gov.tick({"wf": WF}, 1000)
+        api.current["version"] = 3
+        gov.reconcile_applied(1015)
+        assert gov.operation(pid)["state"] == "applied"
+        assert gov.operation(pid)["applied_version"] == 2
+        assert api.writes == 1

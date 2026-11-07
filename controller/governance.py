@@ -35,6 +35,8 @@ class Governance:
         policy = workflow["governance"]
         check = auto_check(policy["auto_apply"], current["config"], target)
         mode = "auto" if check["allowed"] and set(dimensions) <= {"schedule", "caller_id"} else "approval"
+        if workflow.get("tenant_id") == "kestrel_finance":
+            mode = "approval"  # The supervisor requested advance notice for every running-campaign change.
         if mode == "approval":
             used = self.store.db.execute("SELECT COUNT(*) FROM proposals WHERE wid=? AND mode='approval' AND created>?",
                                          (wid, now - 1440)).fetchone()[0]
@@ -43,6 +45,8 @@ class Governance:
                 cap = min(cap, 2)  # Supervisor's stricter attention budget.
             hour = ((now + 330) % 1440) // 60
             start, end = policy["approver_hours"]
+            if workflow.get("tenant_id") == "kestrel_finance":
+                start = max(start, 11)
             if used >= cap or (kind != "incident" and not start <= hour < end - 1):
                 return None
         active_since = now - 1440 * len(workflow.get("cadence", [1, 1, 1]))
@@ -83,6 +87,15 @@ class Governance:
         rows = self.store.db.execute("SELECT pid FROM proposals WHERE wid=? AND state IN (?,?,?,?)", (wid, *ACTIVE)).fetchall()
         for row in rows:
             self._state(self.operation(row[0]), "superseded", now, reason)
+
+    def reconcile_applied(self, now):
+        rows = self.store.db.execute("SELECT pid FROM proposals WHERE state IN (?,?,?,?)", ACTIVE).fetchall()
+        for row in rows:
+            op = self.operation(row[0])
+            history = self.api.get(f"/workflows/{op['wid']}/config/history")
+            applied = next((h for h in history if h.get("proposal_id") == op["pid"]), None)
+            if applied:
+                self._state(op, "applied", now, applied, version=applied["version"])
 
     def tick(self, workflows, now):
         rows = self.store.db.execute("SELECT pid FROM proposals WHERE state IN (?,?,?,?) ORDER BY created", ACTIVE).fetchall()

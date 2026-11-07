@@ -55,6 +55,13 @@ def effective(config, cohort, dimension):
     return distribution(allocations.get(cohort, {}).get(dimension, allocations["default"][dimension]))
 
 
+def exploration_weights(options, control):
+    # Bound unknown exposure at 20%. Dyadic weights are exactly representable,
+    # so repeated API normalization does not fabricate unrelated dimension changes.
+    per_arm = 2 ** math.floor(math.log2(.2 / (len(options) - 1)))
+    return {voice: 1 - per_arm * (len(options) - 1) if voice == control else per_arm for voice in options}
+
+
 def cohort_for(features, definitions):
     for cohort in definitions:
         if all(features.get(key) in values for key, values in cohort["where"].items()):

@@ -1,4 +1,4 @@
-from controller.evidence import compare, auto_check, cohort_for, changed_dimensions
+from controller.evidence import compare, auto_check, cohort_for, changed_dimensions, exploration_weights
 
 
 def counts(dials, connected, engaged):
@@ -31,3 +31,13 @@ def test_shared_cohort_uses_first_match_and_default():
     cohorts = [{"id": "first", "where": {"lang": ["ta"]}}, {"id": "second", "where": {"age_band": ["60+"]}}]
     assert cohort_for({"lang": "ta", "age_band": "60+"}, cohorts) == "first"
     assert cohort_for({"lang": "hi", "age_band": "18-30"}, cohorts) == "default"
+
+
+def test_exploration_bounds_exposure_and_normalizes_without_float_drift():
+    for size in range(2, 10):
+        options = [f"V{i}" for i in range(size)]
+        weights = exploration_weights(options, "V0")
+        assert weights["V0"] >= .8
+        assert all(w > 0 for w in weights.values())
+        assert sum(weights.values()) == 1
+        assert {k: v / sum(weights.values()) for k, v in weights.items()} == weights
