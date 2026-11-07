@@ -35,6 +35,7 @@ def summary(store, wid=None):
     ingestion = [dict(r) for r in store.db.execute("SELECT kind,SUM(n) AS events,SUM(seconds) AS seconds FROM chunks GROUP BY kind")]
     for row in ingestion:
         row["events_per_second"] = row["events"] / row["seconds"] if row["seconds"] else None
+        row["timing_scope"] = "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
     params, where = ((wid,), " WHERE wid=?") if wid else ((), "")
     operations = [dict(r) for r in store.db.execute("SELECT pid,wid,state,mode,approval_id,created,applied_version FROM proposals" + where + " ORDER BY created", params)]
     workflows = {}
@@ -46,7 +47,10 @@ def summary(store, wid=None):
         workflow["experiment"] = store.get("experiment:" + key)
         workflow["incident"] = store.get("incident:" + key)
         workflows[key] = workflow
-    return {"database": str(store.path), "last_state": store.get("last_state"), "performance": store.get("performance"),
+    performance = store.get("performance")
+    replay_rate = sum(row["events"] for row in ingestion) / performance["wall_seconds"] if performance and performance["wall_seconds"] else None
+    return {"database": str(store.path), "last_state": store.get("last_state"), "performance": performance,
+            "end_to_end_replay_events_per_second": replay_rate,
             "ingestion": ingestion, "workflows": workflows, "proposals": operations,
             "recent_decisions": [{**dict(r), "data": json.loads(r["data"])} for r in store.db.execute(
                 "SELECT * FROM audit" + where + " ORDER BY id DESC LIMIT 30", params)]}

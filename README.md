@@ -1,5 +1,9 @@
 # Outcome-First Agent Loop — Senior Engineer Assignment
 
+**Outcome Ledger implementation:** [run and inspect the controller](docs/CONTROLLER.md),
+[read the submission](SUBMISSION.md), or [review measured reports](reports/).
+The supplied simulator and scenarios are unchanged.
+
 **Formi · Agentic Universe** · Greenfield · Suggested effort 12–16 hours across 7 calendar days
 
 ---

@@ -75,3 +75,5 @@ The first uncommitted integrated experiment allocated 50% of traffic to alternat
 ## Storage measurements
 
 SQLite uses a 128 MiB page-cache budget and keeps WAL/FULL durability. The scale investigation found severe random-IO stalls on the D: SATA HDD with the small default cache. The successful scale measurement records its temporary database on the C: SATA SSD, while code and simulator files remain on D:. Use the evaluation harness --state-root option to choose a durable volume explicitly; this is a benchmark storage choice, not an external database service.
+
+Per-chunk ingestion rates measure streaming, parsing, and SQL work before COMMIT; they exclude the final fsync/checkpoint. The view also reports complete-loop replay throughput using total events divided by full controller wall time. The scale report uses the outer harness timing for that conservative end-to-end rate.
