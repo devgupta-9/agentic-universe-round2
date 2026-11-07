@@ -23,7 +23,7 @@
 - [x] **3. HTTP and recovery.** Add `controller/client.py`, `controller/governance.py`, and boundary tests. Streaming chunk reads, finite GET retries, durable mutation intents, proposal reconciliation, version conflicts, and an approval lifecycle. Test response loss after remote success and supervisor changes before apply.
 - [x] **4. Learning loop.** Add `controller/engine.py` with history bootstrap, voice exploration/promotion/control retention, decay monitoring, caller-ID detection, and bounded incident/validation jobs. All decisions carry actual counts and explicit uncertainty. Test that observations from unrun or unapproved arms never become evidence.
 - [x] **5. Runnable and queryable.** Add `controller/__main__.py`, minimal audit/supervisor commands, and update `run.sh`. One automatic entrypoint until the scenario finishes. Persist advance intents and ingest outstanding chunks on restart. Check real HTTP execution and the Bash entrypoint.
-- [ ] **6. Evidence and documentation.** Add a subprocess-based evaluation/crash harness and `SUBMISSION.md`. Run dev, incidents, and load scenarios, retain grade reports and measured controller resource use, and demonstrate a kill/restart. Explain all stakeholder conflicts and deliberate cuts. Preserve honest local commit history.
+- [x] **6. Evidence and documentation.** Add a subprocess-based evaluation/crash harness and `SUBMISSION.md`. Run dev, incidents, and load scenarios, retain grade reports and measured controller resource use, and demonstrate a kill/restart. Explain all stakeholder conflicts and deliberate cuts. Preserve honest local commit history.
 
 ## Verification and review focus
 

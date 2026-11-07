@@ -1,0 +1,21 @@
+{"sim_minute": 0, "credits_remaining": 400.0, "last_event_id": 5537379, "peak_memory_mb": 180.07421875}
+{"sim_minute": 360, "credits_remaining": 400.0, "last_event_id": 5537379, "peak_memory_mb": 180.07421875}
+{"sim_minute": 720, "credits_remaining": 400.0, "last_event_id": 5891394, "peak_memory_mb": 180.109375}
+{"sim_minute": 1080, "credits_remaining": 400.0, "last_event_id": 6215407, "peak_memory_mb": 180.14453125}
+{"sim_minute": 1440, "credits_remaining": 400.0, "last_event_id": 6377407, "peak_memory_mb": 180.14453125}
+{"sim_minute": 1800, "credits_remaining": 400.0, "last_event_id": 6377407, "peak_memory_mb": 180.14453125}
+{"sim_minute": 2160, "credits_remaining": 400.0, "last_event_id": 6731419, "peak_memory_mb": 180.19140625}
+{"sim_minute": 2520, "credits_remaining": 400.0, "last_event_id": 7055419, "peak_memory_mb": 180.19140625}
+{"sim_minute": 2880, "credits_remaining": 400.0, "last_event_id": 7217419, "peak_memory_mb": 180.19140625}
+{"sim_minute": 3240, "credits_remaining": 400.0, "last_event_id": 7217419, "peak_memory_mb": 180.19140625}
+{"sim_minute": 3600, "credits_remaining": 400.0, "last_event_id": 7571431, "peak_memory_mb": 180.19140625}
+{"sim_minute": 3960, "credits_remaining": 400.0, "last_event_id": 7895431, "peak_memory_mb": 180.19140625}
+{"sim_minute": 4320, "credits_remaining": 400.0, "last_event_id": 8057431, "peak_memory_mb": 180.19140625}
+{"sim_minute": 4680, "credits_remaining": 400.0, "last_event_id": 8057431, "peak_memory_mb": 180.19140625}
+{"sim_minute": 5040, "credits_remaining": 400.0, "last_event_id": 8411443, "peak_memory_mb": 180.19140625}
+{"sim_minute": 5400, "credits_remaining": 400.0, "last_event_id": 8735445, "peak_memory_mb": 180.19140625}
+{"sim_minute": 5760, "credits_remaining": 400.0, "last_event_id": 8897445, "peak_memory_mb": 180.19140625}
+{"sim_minute": 6120, "credits_remaining": 400.0, "last_event_id": 8897445, "peak_memory_mb": 180.19140625}
+{"sim_minute": 6480, "credits_remaining": 400.0, "last_event_id": 9251457, "peak_memory_mb": 180.19140625}
+{"sim_minute": 6840, "credits_remaining": 400.0, "last_event_id": 9575461, "peak_memory_mb": 180.19140625}
+{"finished": true, "performance": {"wall_seconds": 812.0150620000204, "decision_seconds": 10.12113200040767, "decision_ticks": 121, "peak_memory_mb": 180.19140625, "max_decision_seconds": 1.2313858999987133, "simulated_decision_lag_minutes": 60, "max_tick_seconds": 309.14004739996744, "finished": true, "final_sim_minute": 7200}, "database": "C:\\Users\\KIIT\\Documents\\Codex\\2026-11-06\\dear-candidate-as-part-of-the\\work\\load-state-ssd\\public_03-df76b3e5c1.sqlite3"}

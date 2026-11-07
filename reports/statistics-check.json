@@ -1,0 +1,9 @@
+{
+  "seed": 20261108,
+  "null_trials": 20000,
+  "comparisons_budget": 144,
+  "false_winners": 0,
+  "observed_per_look_false_winner_rate": 0.0,
+  "zero_event_95_percent_upper_bound": 0.000149775396222962,
+  "limitation": "Independent fixed-look null pairs, not a full sequential or heterogeneous production calibration"
+}

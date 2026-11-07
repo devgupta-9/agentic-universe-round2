@@ -1,0 +1,139 @@
+{
+  "workflow": "ks_cancel",
+  "minute": 29988750,
+  "time_utc": "2027-01-07T12:30:00+00:00",
+  "decision": {
+    "after": {
+      "allocations": {
+        "default": {
+          "caller_id": {
+            "D1": 1.0
+          },
+          "voice": {
+            "V1": 0.8125,
+            "V2": 0.0625,
+            "V3": 0.0625,
+            "V4": 0.0625
+          },
+          "welcome_message": {
+            "W1": 1.0
+          }
+        }
+      },
+      "cohorts": [],
+      "prompt_version": "P1",
+      "schedule": {
+        "hour_weights": {},
+        "lead_preferred_hour": {}
+      }
+    },
+    "approval_id": "apr_00004",
+    "before": {
+      "allocations": {
+        "default": {
+          "caller_id": {
+            "D1": 1.0
+          },
+          "voice": {
+            "V1": 0.8125,
+            "V2": 0.0625,
+            "V3": 0.0625,
+            "V4": 0.0625
+          },
+          "welcome_message": {
+            "W1": 1.0
+          }
+        }
+      },
+      "cohorts": [],
+      "prompt_version": "P2",
+      "schedule": {
+        "hour_weights": {},
+        "lead_preferred_hour": {}
+      }
+    },
+    "evidence": {
+      "before_config": {
+        "allocations": {
+          "default": {
+            "caller_id": {
+              "D1": 1.0
+            },
+            "voice": {
+              "V1": 0.8125,
+              "V2": 0.0625,
+              "V3": 0.0625,
+              "V4": 0.0625
+            },
+            "welcome_message": {
+              "W1": 1.0
+            }
+          }
+        },
+        "cohorts": [],
+        "prompt_version": "P2",
+        "schedule": {
+          "hour_weights": {},
+          "lead_preferred_hour": {}
+        }
+      },
+      "detection": {
+        "alarm": true,
+        "historical": {
+          "arm": "",
+          "connected": 16439,
+          "dials": 65018,
+          "engaged": 8288,
+          "hallucinations": 225
+        },
+        "recent": {
+          "arm": "",
+          "connected": 294,
+          "dials": 1200,
+          "engaged": 139,
+          "hallucinations": 18
+        },
+        "z": 3.090232306167813
+      },
+      "expected_primary_delta": 0,
+      "kind": "incident",
+      "policy_check": {
+        "allowed": false,
+        "dimensions": [
+          "prompt_version"
+        ],
+        "max_shift": 0.0,
+        "reasons": [
+          "changed dimension outside allowlist"
+        ]
+      },
+      "reason": "Restore a validated grounded prompt after population QA degradation",
+      "validation": [
+        {
+          "credits_remaining": 194.0,
+          "failures": 8,
+          "n": 600,
+          "pass_rate": 0.9867,
+          "prompt_version": "P1",
+          "ts": "2027-01-07T15:00:00+05:30",
+          "validation_run_id": "val_00001",
+          "workflow_id": "ks_cancel"
+        }
+      ]
+    },
+    "kind": "incident",
+    "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+    "reason": "Restore a validated grounded prompt after population QA degradation",
+    "version": 5
+  },
+  "observed_next_six_hours": {
+    "arm": "",
+    "dials": 1200,
+    "connected": 261,
+    "engaged": 130,
+    "hallucinations": 4,
+    "pickup_rate": 0.2175,
+    "engagement_rate": 0.49808429118773945,
+    "limitation": "Descriptive follow-up; not a causal estimate"
+  }
+}

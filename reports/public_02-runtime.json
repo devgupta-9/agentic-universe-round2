@@ -1,0 +1,1333 @@
+{
+  "database": "D:\\agentic-universe\\sde-assignment-2026\\state\\public_02-4916810e80.sqlite3",
+  "last_state": {
+    "chunks": 131,
+    "credits_remaining": 194.0,
+    "end_minute": 14400,
+    "finished": true,
+    "last_event_id": 324314,
+    "scenario": "public_02_incidents",
+    "sim_minute": 14400,
+    "tick_minutes": 15,
+    "ts": "2027-01-14T00:00:00+05:30"
+  },
+  "performance": {
+    "decision_seconds": 11.768947999633383,
+    "decision_ticks": 241,
+    "final_sim_minute": 14400,
+    "finished": true,
+    "max_decision_seconds": 1.6216126999934204,
+    "max_tick_seconds": 10.156655500002671,
+    "peak_memory_mb": 39.046875,
+    "simulated_decision_lag_minutes": 60,
+    "wall_seconds": 156.07640640001046
+  },
+  "end_to_end_replay_events_per_second": 2077.9181650864707,
+  "ingestion": [
+    {
+      "kind": "events",
+      "events": 137040,
+      "seconds": 4.243520300078671,
+      "events_per_second": 32293.942366072664,
+      "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+    },
+    {
+      "kind": "history",
+      "events": 187274,
+      "seconds": 5.522047300008126,
+      "events_per_second": 33913.87103832385,
+      "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+    }
+  ],
+  "workflows": {
+    "ks_cancel": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "controller_approved",
+        "applied_at": "2027-01-07T18:00:00+05:30",
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 1.0
+              },
+              "voice": {
+                "V1": 0.8125,
+                "V2": 0.0625,
+                "V3": 0.0625,
+                "V4": 0.0625
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 5,
+        "workflow_id": "ks_cancel"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          2,
+          2
+        ],
+        "current_version": 5,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.3,
+          "size": 1500
+        },
+        "dialling_window": [
+          9,
+          21
+        ],
+        "dials_per_hour": 400,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            19
+          ],
+          "approver_latency_minutes": [
+            20,
+            120
+          ],
+          "auto_apply": {
+            "allowed_dims": [
+              "schedule",
+              "caller_id",
+              "welcome_message",
+              "voice"
+            ],
+            "enabled": true,
+            "max_shift": 0.2
+          },
+          "base_reject_rate": 0.05,
+          "max_requests_per_24h": 4,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 12
+        },
+        "languages": [
+          "hi",
+          "en",
+          "kn"
+        ],
+        "mid_flight": "allowed",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "pickup_rate_max_drop": 0.02
+          },
+          "primary": "engagement_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3"
+          ],
+          "prompt_version": [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5"
+          ],
+          "voice": [
+            "V1",
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2",
+            "W3"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P2": "Supervisor edit: adds payment-urgency language and benefit claims",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling",
+          "P4": "Persuasive: freer objection handling and richer benefit explanations",
+          "P5": "Strict: near-verbatim compliance script"
+        },
+        "tenant_id": "kestrel_finance",
+        "use_case": "consumer-loan cancellation reconfirmation",
+        "workflow_id": "ks_cancel"
+      },
+      "experiment": null,
+      "incident": {
+        "applied": 29988750,
+        "attempted": [
+          "P1"
+        ],
+        "candidates": [
+          "P1"
+        ],
+        "current_prompt": "P2",
+        "detected": 29988570,
+        "detection": {
+          "alarm": true,
+          "historical": {
+            "arm": "",
+            "connected": 16439,
+            "dials": 65018,
+            "engaged": 8288,
+            "hallucinations": 225
+          },
+          "recent": {
+            "arm": "",
+            "connected": 294,
+            "dials": 1200,
+            "engaged": 139,
+            "hallucinations": 18
+          },
+          "z": 3.090232306167813
+        },
+        "evidence": {
+          "validation_run_id": "val_00001"
+        },
+        "known_safe_prompt": "P1",
+        "paid_receipts": [
+          {
+            "path": "/validation/runs",
+            "response": {
+              "credits_remaining": 194.0,
+              "failures": 8,
+              "n": 600,
+              "pass_rate": 0.9867,
+              "prompt_version": "P1",
+              "ts": "2027-01-07T15:00:00+05:30",
+              "validation_run_id": "val_00001",
+              "workflow_id": "ks_cancel"
+            }
+          }
+        ],
+        "post": {
+          "arm": "",
+          "connected": 261,
+          "dials": 1200,
+          "engaged": 130,
+          "hallucinations": 4
+        },
+        "primary_delta": -0.006082628941222135,
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "selected_prompt": "P1",
+        "state": "verified",
+        "validations": [
+          {
+            "credits_remaining": 194.0,
+            "failures": 8,
+            "n": 600,
+            "pass_rate": 0.9867,
+            "prompt_version": "P1",
+            "ts": "2027-01-07T15:00:00+05:30",
+            "validation_run_id": "val_00001",
+            "workflow_id": "ks_cancel"
+          }
+        ]
+      }
+    },
+    "nw_kyc": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "business_default",
+        "applied_at": null,
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 1.0
+              },
+              "voice": {
+                "V1": 1.0
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 1,
+        "workflow_id": "nw_kyc"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          2,
+          3
+        ],
+        "current_version": 1,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.2,
+          "size": 700
+        },
+        "dialling_window": [
+          10,
+          20
+        ],
+        "dials_per_hour": 200,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            18
+          ],
+          "approver_latency_minutes": [
+            60,
+            480
+          ],
+          "auto_apply": {
+            "allowed_dims": [],
+            "enabled": false,
+            "max_shift": 0
+          },
+          "base_reject_rate": 0.15,
+          "max_requests_per_24h": 2,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 24
+        },
+        "languages": [
+          "en",
+          "hi"
+        ],
+        "mid_flight": "next_campaign_only",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "engagement_rate_max_drop": 0.02
+          },
+          "primary": "pickup_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3"
+          ],
+          "prompt_version": [
+            "P1",
+            "P3"
+          ],
+          "voice": [
+            "V1",
+            "V2"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling"
+        },
+        "tenant_id": "northwind_life",
+        "use_case": "KYC document reminder for new policies",
+        "workflow_id": "nw_kyc"
+      },
+      "experiment": null,
+      "incident": null
+    },
+    "nw_renewal": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "supervisor",
+        "applied_at": "2027-01-09T15:00:00+05:30",
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 0.5,
+                "D2": 0.5
+              },
+              "voice": {
+                "V2": 1.0
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 3,
+        "workflow_id": "nw_renewal"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          3,
+          3
+        ],
+        "current_version": 3,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.4,
+          "size": 1100
+        },
+        "dialling_window": [
+          9,
+          21
+        ],
+        "dials_per_hour": 300,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            19
+          ],
+          "approver_latency_minutes": [
+            30,
+            240
+          ],
+          "auto_apply": {
+            "allowed_dims": [
+              "schedule",
+              "caller_id"
+            ],
+            "enabled": true,
+            "max_shift": 0.5
+          },
+          "base_reject_rate": 0.1,
+          "max_requests_per_24h": 3,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 24
+        },
+        "languages": [
+          "hi",
+          "en",
+          "ta"
+        ],
+        "mid_flight": "allowed",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "pickup_rate_max_drop": 0.02
+          },
+          "primary": "engagement_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3",
+            "D4"
+          ],
+          "prompt_version": [
+            "P1",
+            "P3",
+            "P4",
+            "P5"
+          ],
+          "voice": [
+            "V1",
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2",
+            "W3"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling",
+          "P4": "Persuasive: freer objection handling and richer benefit explanations",
+          "P5": "Strict: near-verbatim compliance script"
+        },
+        "tenant_id": "northwind_life",
+        "use_case": "life-insurance renewal premium reminder (persistency)",
+        "workflow_id": "nw_renewal"
+      },
+      "experiment": null,
+      "incident": null
+    }
+  },
+  "proposals": [
+    {
+      "pid": "61ea2ab7-5174-466e-8f6e-f2b6eac6d4a3",
+      "wid": "nw_renewal",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00001",
+      "created": 29983950,
+      "applied_version": 2
+    },
+    {
+      "pid": "d243927c-e4bd-4f79-9a55-12e5ce2adf40",
+      "wid": "ks_cancel",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00002",
+      "created": 29984010,
+      "applied_version": 2
+    },
+    {
+      "pid": "ed5b296a-38d5-45a6-86c0-4108a51f8d3d",
+      "wid": "ks_cancel",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00003",
+      "created": 29987010,
+      "applied_version": 3
+    },
+    {
+      "pid": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+      "wid": "ks_cancel",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00004",
+      "created": 29988570,
+      "applied_version": 5
+    }
+  ],
+  "recent_decisions": [
+    {
+      "id": 118,
+      "minute": 29997750,
+      "wid": "",
+      "kind": "run_finished",
+      "data": {
+        "decision_seconds": 11.768947999633383,
+        "decision_ticks": 241,
+        "final_sim_minute": 14400,
+        "finished": true,
+        "max_decision_seconds": 1.6216126999934204,
+        "max_tick_seconds": 10.156655500002671,
+        "peak_memory_mb": 39.046875,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 156.07640640001046
+      }
+    },
+    {
+      "id": 117,
+      "minute": 29996790,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0024",
+        "config_version_at_creation": 5,
+        "event_id": 312414,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-13T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 116,
+      "minute": 29996790,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0024",
+        "config_version_at_creation": 1,
+        "event_id": 311713,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-13T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 115,
+      "minute": 29996790,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0024",
+        "config_version_at_creation": 3,
+        "event_id": 310612,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-13T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 114,
+      "minute": 29995350,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0023",
+        "config_version_at_creation": 5,
+        "event_id": 298711,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-12T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 113,
+      "minute": 29995350,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0023",
+        "config_version_at_creation": 1,
+        "event_id": 298010,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-12T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 112,
+      "minute": 29995350,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0023",
+        "config_version_at_creation": 3,
+        "event_id": 296909,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-12T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 111,
+      "minute": 29993910,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0022",
+        "config_version_at_creation": 5,
+        "event_id": 285008,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 110,
+      "minute": 29993910,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0022",
+        "config_version_at_creation": 1,
+        "event_id": 284307,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 109,
+      "minute": 29993910,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0022",
+        "config_version_at_creation": 3,
+        "event_id": 283206,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 108,
+      "minute": 29992470,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0021",
+        "config_version_at_creation": 5,
+        "event_id": 271305,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 107,
+      "minute": 29992470,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0021",
+        "config_version_at_creation": 1,
+        "event_id": 270604,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 106,
+      "minute": 29992470,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0021",
+        "config_version_at_creation": 3,
+        "event_id": 269503,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 105,
+      "minute": 29991510,
+      "wid": "nw_renewal",
+      "kind": "supervisor_edit_observed",
+      "data": {
+        "action": "abort experiment and re-evaluate; safety detection remains active",
+        "edits": [
+          {
+            "actor": "supervisor",
+            "applied_at": "2027-01-09T15:00:00+05:30",
+            "approval_id": null,
+            "changed_dims": [
+              "voice"
+            ],
+            "proposal_id": null,
+            "version": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": 104,
+      "minute": 29991450,
+      "wid": "nw_renewal",
+      "kind": "config_changed",
+      "data": {
+        "actor": "supervisor",
+        "approval_id": null,
+        "changed_dims": [
+          "voice"
+        ],
+        "event_id": 264302,
+        "proposal_id": null,
+        "ts": "2027-01-09T15:00:00+05:30",
+        "type": "config_changed",
+        "version": 3,
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 103,
+      "minute": 29991210,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 3609,
+              "dials": 13897,
+              "engaged": 2002,
+              "hallucinations": 45
+            },
+            "guardrail_delta": -0.011361418214350855,
+            "guardrail_interval": [
+              -0.061673798231400866,
+              0.038950961802699156
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.006831580053697217,
+            "primary_interval": [
+              -0.1227920960607541,
+              0.10912893595335967
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 261,
+              "dials": 1051,
+              "engaged": 143,
+              "hallucinations": 4
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          },
+          "V3": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 3609,
+              "dials": 13897,
+              "engaged": 2002,
+              "hallucinations": 45
+            },
+            "guardrail_delta": -0.0013630040056606951,
+            "guardrail_interval": [
+              -0.05164695496049978,
+              0.04892094694917839
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.024258350539422047,
+            "primary_interval": [
+              -0.13696068799631167,
+              0.08844398691746759
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 279,
+              "dials": 1080,
+              "engaged": 148,
+              "hallucinations": 2
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          },
+          "V4": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 3609,
+              "dials": 13897,
+              "engaged": 2002,
+              "hallucinations": 45
+            },
+            "guardrail_delta": -0.02742021793600899,
+            "guardrail_interval": [
+              -0.07623286797116446,
+              0.021392432099146486
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.05673233248872467,
+            "primary_interval": [
+              -0.17577805403694302,
+              0.062313389059493685
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 249,
+              "dials": 1072,
+              "engaged": 124,
+              "hallucinations": 4
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 102,
+      "minute": 29991030,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0020",
+        "config_version_at_creation": 5,
+        "event_id": 257601,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 101,
+      "minute": 29991030,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0020",
+        "config_version_at_creation": 1,
+        "event_id": 256900,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 100,
+      "minute": 29991030,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0020",
+        "config_version_at_creation": 2,
+        "event_id": 255799,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 99,
+      "minute": 29989770,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 2854,
+              "dials": 10962,
+              "engaged": 1585,
+              "hallucinations": 36
+            },
+            "guardrail_delta": -0.013679222076837055,
+            "guardrail_interval": [
+              -0.07028256802511385,
+              0.04292412387143974
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.00836459320939309,
+            "primary_interval": [
+              -0.12231527097730893,
+              0.1390444573960951
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 204,
+              "dials": 827,
+              "engaged": 115,
+              "hallucinations": 3
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          },
+          "V3": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 2854,
+              "dials": 10962,
+              "engaged": 1585,
+              "hallucinations": 36
+            },
+            "guardrail_delta": -0.0004931611460133878,
+            "guardrail_interval": [
+              -0.05690857045659306,
+              0.055922248164566285
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.024110896986685337,
+            "primary_interval": [
+              -0.14994689834388195,
+              0.10172510437051127
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 224,
+              "dials": 862,
+              "engaged": 119,
+              "hallucinations": 0
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          },
+          "V4": {
+            "comparisons": 180,
+            "control": {
+              "arm": "V1",
+              "connected": 2854,
+              "dials": 10962,
+              "engaged": 1585,
+              "hallucinations": 36
+            },
+            "guardrail_delta": -0.02478268970287978,
+            "guardrail_interval": [
+              -0.07989710680924635,
+              0.03033172740348679
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.07036089698668535,
+            "primary_interval": [
+              -0.2032025021610113,
+              0.06248070818764059
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 200,
+              "dials": 849,
+              "engaged": 97,
+              "hallucinations": 4
+            },
+            "winner": false,
+            "z": 3.6351881983520586
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 98,
+      "minute": 29989590,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0019",
+        "config_version_at_creation": 5,
+        "event_id": 243898,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 97,
+      "minute": 29989590,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0019",
+        "config_version_at_creation": 1,
+        "event_id": 243197,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 96,
+      "minute": 29989590,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0019",
+        "config_version_at_creation": 2,
+        "event_id": 242096,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 95,
+      "minute": 29988930,
+      "wid": "ks_cancel",
+      "kind": "incident_verified",
+      "data": {
+        "action": "Continue monitoring",
+        "post": {
+          "arm": "",
+          "connected": 261,
+          "dials": 1200,
+          "engaged": 130,
+          "hallucinations": 4
+        },
+        "primary_delta": -0.006082628941222135
+      }
+    },
+    {
+      "id": 94,
+      "minute": 29988750,
+      "wid": "ks_cancel",
+      "kind": "config_changed",
+      "data": {
+        "actor": "controller_approved",
+        "approval_id": "apr_00004",
+        "changed_dims": [
+          "prompt_version"
+        ],
+        "event_id": 239595,
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "ts": "2027-01-07T18:00:00+05:30",
+        "type": "config_changed",
+        "version": 5,
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 93,
+      "minute": 29988750,
+      "wid": "ks_cancel",
+      "kind": "change_effective",
+      "data": {
+        "after": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 1.0
+              },
+              "voice": {
+                "V1": 0.8125,
+                "V2": 0.0625,
+                "V3": 0.0625,
+                "V4": 0.0625
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "approval_id": "apr_00004",
+        "before": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 1.0
+              },
+              "voice": {
+                "V1": 0.8125,
+                "V2": 0.0625,
+                "V3": 0.0625,
+                "V4": 0.0625
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P2",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "evidence": {
+          "before_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 1.0
+                },
+                "voice": {
+                  "V1": 0.8125,
+                  "V2": 0.0625,
+                  "V3": 0.0625,
+                  "V4": 0.0625
+                },
+                "welcome_message": {
+                  "W1": 1.0
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P2",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "detection": {
+            "alarm": true,
+            "historical": {
+              "arm": "",
+              "connected": 16439,
+              "dials": 65018,
+              "engaged": 8288,
+              "hallucinations": 225
+            },
+            "recent": {
+              "arm": "",
+              "connected": 294,
+              "dials": 1200,
+              "engaged": 139,
+              "hallucinations": 18
+            },
+            "z": 3.090232306167813
+          },
+          "expected_primary_delta": 0,
+          "kind": "incident",
+          "policy_check": {
+            "allowed": false,
+            "dimensions": [
+              "prompt_version"
+            ],
+            "max_shift": 0.0,
+            "reasons": [
+              "changed dimension outside allowlist"
+            ]
+          },
+          "reason": "Restore a validated grounded prompt after population QA degradation",
+          "validation": [
+            {
+              "credits_remaining": 194.0,
+              "failures": 8,
+              "n": 600,
+              "pass_rate": 0.9867,
+              "prompt_version": "P1",
+              "ts": "2027-01-07T15:00:00+05:30",
+              "validation_run_id": "val_00001",
+              "workflow_id": "ks_cancel"
+            }
+          ]
+        },
+        "kind": "incident",
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "reason": "Restore a validated grounded prompt after population QA degradation",
+        "version": 5
+      }
+    },
+    {
+      "id": 92,
+      "minute": 29988750,
+      "wid": "ks_cancel",
+      "kind": "proposal_applied",
+      "data": {
+        "approval_id": "apr_00004",
+        "detail": {
+          "changed_dims": [
+            "prompt_version"
+          ],
+          "version": 5,
+          "workflow_id": "ks_cancel"
+        },
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "version": 5
+      }
+    },
+    {
+      "id": 91,
+      "minute": 29988678,
+      "wid": "ks_cancel",
+      "kind": "approval_decided",
+      "data": {
+        "approval_id": "apr_00004",
+        "event_id": 238919,
+        "reasons": [],
+        "status": "approved",
+        "ts": "2027-01-07T16:48:00+05:30",
+        "type": "approval_decided",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 90,
+      "minute": 29988570,
+      "wid": "ks_cancel",
+      "kind": "proposal_pending",
+      "data": {
+        "approval_id": "apr_00004",
+        "detail": {
+          "approval_id": "apr_00004",
+          "base_version": 4,
+          "changed_dims": [
+            "prompt_version"
+          ],
+          "created_at": "2027-01-07T15:00:00+05:30",
+          "expires_at": "2027-01-08T03:00:00+05:30",
+          "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+          "status": "pending",
+          "workflow_id": "ks_cancel"
+        },
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "version": null
+      }
+    },
+    {
+      "id": 89,
+      "minute": 29988570,
+      "wid": "ks_cancel",
+      "kind": "proposal_pending",
+      "data": {
+        "approval_id": "apr_00004",
+        "detail": {
+          "approval_id": "apr_00004",
+          "base_version": 4,
+          "changed_dims": [
+            "prompt_version"
+          ],
+          "created_at": "2027-01-07T15:00:00+05:30",
+          "expires_at": "2027-01-08T03:00:00+05:30",
+          "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+          "status": "pending",
+          "workflow_id": "ks_cancel"
+        },
+        "proposal_id": "df34c6d8-6ab1-4d36-b0fe-cfc11effc6e0",
+        "version": null
+      }
+    }
+  ],
+  "evaluation": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.10.11",
+    "logical_cpus": 4,
+    "target_linux_hardware_verified": false,
+    "server_start_seconds": 34.85166939999908,
+    "controller_wall_seconds_including_restart": 162.5191943999962,
+    "wall_seconds_per_simulated_day_including_history_ingest": 16.251919439999618,
+    "entrypoint": "run.sh via Bash",
+    "call_rows": 245032,
+    "metric_dials": 245032,
+    "last_event_id_matches_server": true,
+    "duplicate_remote_applications": []
+  },
+  "report_metadata_note": "CLI labels refreshed from the same completed audit database; original measured evaluation timing retained"
+}

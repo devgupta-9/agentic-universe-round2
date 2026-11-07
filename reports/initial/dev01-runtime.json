@@ -1,0 +1,1981 @@
+{
+  "database": "state\\dev01.sqlite3",
+  "last_state": {
+    "chunks": 105,
+    "credits_remaining": 200.0,
+    "end_minute": 11520,
+    "finished": true,
+    "last_event_id": 297029,
+    "scenario": "public_01_dev",
+    "sim_minute": 11520,
+    "tick_minutes": 15,
+    "ts": "2027-01-12T00:00:00+05:30"
+  },
+  "performance": {
+    "decision_seconds": 6.523503900389187,
+    "decision_ticks": 193,
+    "final_sim_minute": 11520,
+    "finished": true,
+    "max_decision_seconds": 0.45702450000680983,
+    "max_tick_seconds": 8.173330200021155,
+    "peak_memory_mb": 44.234375,
+    "simulated_decision_lag_minutes": 60,
+    "wall_seconds": 130.87118230003398
+  },
+  "ingestion": [
+    {
+      "kind": "events",
+      "events": 109629,
+      "seconds": 5.3760744001483545,
+      "events_per_second": 20392.016895632016
+    },
+    {
+      "kind": "history",
+      "events": 187400,
+      "seconds": 6.3439663000172,
+      "events_per_second": 29539.879491398293
+    }
+  ],
+  "workflows": {
+    "ks_cancel": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "controller_approved",
+        "applied_at": "2027-01-04T11:00:00+05:30",
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 0.5,
+                "D2": 0.5
+              },
+              "voice": {
+                "V1": 0.5000000000000001,
+                "V2": 0.16666666666666669,
+                "V3": 0.16666666666666669,
+                "V4": 0.16666666666666669
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 2,
+        "workflow_id": "ks_cancel"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          2,
+          2
+        ],
+        "current_version": 2,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.3,
+          "size": 1500
+        },
+        "dialling_window": [
+          9,
+          21
+        ],
+        "dials_per_hour": 400,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            19
+          ],
+          "approver_latency_minutes": [
+            20,
+            120
+          ],
+          "auto_apply": {
+            "allowed_dims": [
+              "schedule",
+              "caller_id",
+              "welcome_message",
+              "voice"
+            ],
+            "enabled": true,
+            "max_shift": 0.2
+          },
+          "base_reject_rate": 0.05,
+          "max_requests_per_24h": 4,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 12
+        },
+        "languages": [
+          "hi",
+          "en",
+          "kn"
+        ],
+        "mid_flight": "allowed",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "pickup_rate_max_drop": 0.02
+          },
+          "primary": "engagement_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3"
+          ],
+          "prompt_version": [
+            "P1",
+            "P3",
+            "P4"
+          ],
+          "voice": [
+            "V1",
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2",
+            "W3"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling",
+          "P4": "Persuasive: freer objection handling and richer benefit explanations"
+        },
+        "tenant_id": "kestrel_finance",
+        "use_case": "consumer-loan cancellation reconfirmation",
+        "workflow_id": "ks_cancel"
+      },
+      "experiment": {
+        "cohort": "default",
+        "control": "V1",
+        "last_look": 7,
+        "options": [
+          "V1",
+          "V2",
+          "V3",
+          "V4"
+        ],
+        "phase": "explore",
+        "start": 29984010,
+        "version": 2
+      },
+      "incident": null
+    },
+    "nw_kyc": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "business_default",
+        "applied_at": null,
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 1.0
+              },
+              "voice": {
+                "V1": 1.0
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 1,
+        "workflow_id": "nw_kyc"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          2,
+          3
+        ],
+        "current_version": 1,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.2,
+          "size": 700
+        },
+        "dialling_window": [
+          10,
+          20
+        ],
+        "dials_per_hour": 200,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            18
+          ],
+          "approver_latency_minutes": [
+            60,
+            480
+          ],
+          "auto_apply": {
+            "allowed_dims": [],
+            "enabled": false,
+            "max_shift": 0
+          },
+          "base_reject_rate": 0.15,
+          "max_requests_per_24h": 2,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 24
+        },
+        "languages": [
+          "en",
+          "hi"
+        ],
+        "mid_flight": "next_campaign_only",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "engagement_rate_max_drop": 0.02
+          },
+          "primary": "pickup_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3"
+          ],
+          "prompt_version": [
+            "P1",
+            "P3"
+          ],
+          "voice": [
+            "V1",
+            "V2"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling"
+        },
+        "tenant_id": "northwind_life",
+        "use_case": "KYC document reminder for new policies",
+        "workflow_id": "nw_kyc"
+      },
+      "experiment": null,
+      "incident": null
+    },
+    "nw_renewal": {
+      "cohorts": [
+        {
+          "id": "default",
+          "where": {}
+        }
+      ],
+      "current": {
+        "actor": "controller_approved",
+        "applied_at": "2027-01-04T15:00:00+05:30",
+        "config": {
+          "allocations": {
+            "default": {
+              "caller_id": {
+                "D1": 0.5,
+                "D2": 0.5
+              },
+              "voice": {
+                "V1": 0.5000000000000001,
+                "V2": 0.16666666666666669,
+                "V3": 0.16666666666666669,
+                "V4": 0.16666666666666669
+              },
+              "welcome_message": {
+                "W1": 1.0
+              }
+            }
+          },
+          "cohorts": [],
+          "prompt_version": "P1",
+          "schedule": {
+            "hour_weights": {},
+            "lead_preferred_hour": {}
+          }
+        },
+        "version": 2,
+        "workflow_id": "nw_renewal"
+      },
+      "workflow": {
+        "cadence": [
+          2,
+          3,
+          3
+        ],
+        "current_version": 2,
+        "daily_batch": {
+          "at_hour": 8,
+          "returning_share": 0.4,
+          "size": 1100
+        },
+        "dialling_window": [
+          9,
+          21
+        ],
+        "dials_per_hour": 300,
+        "governance": {
+          "apply_window_hours": 2,
+          "approver_hours": [
+            10,
+            19
+          ],
+          "approver_latency_minutes": [
+            30,
+            240
+          ],
+          "auto_apply": {
+            "allowed_dims": [
+              "schedule",
+              "caller_id"
+            ],
+            "enabled": true,
+            "max_shift": 0.5
+          },
+          "base_reject_rate": 0.1,
+          "max_requests_per_24h": 3,
+          "min_validation_pass_rate": 0.97,
+          "proposal_ttl_hours": 24
+        },
+        "languages": [
+          "hi",
+          "en",
+          "ta"
+        ],
+        "mid_flight": "allowed",
+        "min_gap_minutes": 120,
+        "objective": {
+          "guardrail": {
+            "pickup_rate_max_drop": 0.02
+          },
+          "primary": "engagement_rate"
+        },
+        "options": {
+          "caller_id": [
+            "D1",
+            "D2",
+            "D3",
+            "D4"
+          ],
+          "prompt_version": [
+            "P1",
+            "P3",
+            "P4",
+            "P5"
+          ],
+          "voice": [
+            "V1",
+            "V2",
+            "V3",
+            "V4"
+          ],
+          "welcome_message": [
+            "W1",
+            "W2",
+            "W3"
+          ]
+        },
+        "prompt_catalog": {
+          "P1": "Current production prompt",
+          "P3": "Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling",
+          "P4": "Persuasive: freer objection handling and richer benefit explanations",
+          "P5": "Strict: near-verbatim compliance script"
+        },
+        "tenant_id": "northwind_life",
+        "use_case": "life-insurance renewal premium reminder (persistency)",
+        "workflow_id": "nw_renewal"
+      },
+      "experiment": {
+        "cohort": "default",
+        "control": "V1",
+        "last_look": 7,
+        "options": [
+          "V1",
+          "V2",
+          "V3",
+          "V4"
+        ],
+        "phase": "explore",
+        "start": 29984250,
+        "version": 2
+      },
+      "incident": null
+    }
+  },
+  "proposals": [
+    {
+      "pid": "788d991e-8499-4e49-8987-0032bc35664f",
+      "wid": "ks_cancel",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00001",
+      "created": 29983950,
+      "applied_version": 2
+    },
+    {
+      "pid": "214a85b3-40d0-4803-b66b-7e8361465ce6",
+      "wid": "nw_renewal",
+      "state": "rejected",
+      "mode": "approval",
+      "approval_id": "apr_00002",
+      "created": 29983950,
+      "applied_version": null
+    },
+    {
+      "pid": "9439ba67-fea5-4f15-b181-b2051f9567c9",
+      "wid": "nw_renewal",
+      "state": "applied",
+      "mode": "approval",
+      "approval_id": "apr_00003",
+      "created": 29984130,
+      "applied_version": 2
+    }
+  ],
+  "recent_decisions": [
+    {
+      "id": 102,
+      "minute": 29994870,
+      "wid": "",
+      "kind": "run_finished",
+      "data": {
+        "decision_seconds": 6.523503900389187,
+        "decision_ticks": 193,
+        "final_sim_minute": 11520,
+        "finished": true,
+        "max_decision_seconds": 0.45702450000680983,
+        "max_tick_seconds": 8.173330200021155,
+        "peak_memory_mb": 44.234375,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 130.87118230003398
+      }
+    },
+    {
+      "id": 101,
+      "minute": 29994090,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3119,
+              "dials": 11994,
+              "engaged": 1692,
+              "hallucinations": 46
+            },
+            "guardrail_delta": -0.0119866149178052,
+            "guardrail_interval": [
+              -0.04032197100927622,
+              0.016348741173665818
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.009686408196370677,
+            "primary_interval": [
+              -0.07474554219242156,
+              0.05537272579968021
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 991,
+              "dials": 3995,
+              "engaged": 528,
+              "hallucinations": 21
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3119,
+              "dials": 11994,
+              "engaged": 1692,
+              "hallucinations": 46
+            },
+            "guardrail_delta": 0.0035382620414378674,
+            "guardrail_interval": [
+              -0.025030167960013172,
+              0.03210669204288891
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.00882440554521402,
+            "primary_interval": [
+              -0.05419354587855449,
+              0.07184235696898253
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 1072,
+              "dials": 4067,
+              "engaged": 591,
+              "hallucinations": 17
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3119,
+              "dials": 11994,
+              "engaged": 1692,
+              "hallucinations": 46
+            },
+            "guardrail_delta": 0.004659192341268659,
+            "guardrail_interval": [
+              -0.024270426592200148,
+              0.033588811274737465
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.01566164123239222,
+            "primary_interval": [
+              -0.07948847958754784,
+              0.048165197122763403
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 1044,
+              "dials": 3944,
+              "engaged": 550,
+              "hallucinations": 17
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 100,
+      "minute": 29994090,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 4012,
+              "dials": 16612,
+              "engaged": 2054,
+              "hallucinations": 61
+            },
+            "guardrail_delta": -0.004785333180373247,
+            "guardrail_interval": [
+              -0.028158956883706066,
+              0.018588290522959572
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.00937343410183955,
+            "primary_interval": [
+              -0.06563086936871541,
+              0.04688400116503631
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 1351,
+              "dials": 5707,
+              "engaged": 679,
+              "hallucinations": 21
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 4012,
+              "dials": 16612,
+              "engaged": 2054,
+              "hallucinations": 61
+            },
+            "guardrail_delta": 0.004701295557636154,
+            "guardrail_interval": [
+              -0.01895134053885633,
+              0.02835393165412864
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.008387569765667235,
+            "primary_interval": [
+              -0.06393245456822313,
+              0.04715731503688866
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 1398,
+              "dials": 5678,
+              "engaged": 704,
+              "hallucinations": 16
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 4012,
+              "dials": 16612,
+              "engaged": 2054,
+              "hallucinations": 61
+            },
+            "guardrail_delta": 0.004427515289593009,
+            "guardrail_interval": [
+              -0.01933653453567881,
+              0.028191565114864828
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.019240536735222524,
+            "primary_interval": [
+              -0.036522669290327096,
+              0.07500374276077215
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 1378,
+              "dials": 5603,
+              "engaged": 732,
+              "hallucinations": 15
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 99,
+      "minute": 29993910,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0022",
+        "config_version_at_creation": 2,
+        "event_id": 285129,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 98,
+      "minute": 29993910,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0022",
+        "config_version_at_creation": 1,
+        "event_id": 284428,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 97,
+      "minute": 29993910,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0022",
+        "config_version_at_creation": 2,
+        "event_id": 283327,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-11T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 96,
+      "minute": 29992650,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2633,
+              "dials": 10180,
+              "engaged": 1421,
+              "hallucinations": 39
+            },
+            "guardrail_delta": -0.01474913747311557,
+            "guardrail_interval": [
+              -0.04533465780850939,
+              0.015836382862278252
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.011341161659314314,
+            "primary_interval": [
+              -0.08243337491120489,
+              0.059751051592576265
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 829,
+              "dials": 3399,
+              "engaged": 438,
+              "hallucinations": 18
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2633,
+              "dials": 10180,
+              "engaged": 1421,
+              "hallucinations": 39
+            },
+            "guardrail_delta": 0.007266671576830641,
+            "guardrail_interval": [
+              -0.023831679989082,
+              0.03836502314274328
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.007852415433370896,
+            "primary_interval": [
+              -0.060501256076335275,
+              0.07620608694307707
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 915,
+              "dials": 3441,
+              "engaged": 501,
+              "hallucinations": 12
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2633,
+              "dials": 10180,
+              "engaged": 1421,
+              "hallucinations": 39
+            },
+            "guardrail_delta": 0.008219504539589195,
+            "guardrail_interval": [
+              -0.02311573978862716,
+              0.03955474886780555
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.016406971720858254,
+            "primary_interval": [
+              -0.08530169698005396,
+              0.052487753538337456
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 902,
+              "dials": 3380,
+              "engaged": 472,
+              "hallucinations": 15
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 95,
+      "minute": 29992650,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3450,
+              "dials": 14268,
+              "engaged": 1744,
+              "hallucinations": 50
+            },
+            "guardrail_delta": -0.0059275959191854855,
+            "guardrail_interval": [
+              -0.031161617292126898,
+              0.019306425453755927
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.0020350241545893377,
+            "primary_interval": [
+              -0.06289656190016395,
+              0.05882651359098527
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 1152,
+              "dials": 4884,
+              "engaged": 580,
+              "hallucinations": 18
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3450,
+              "dials": 14268,
+              "engaged": 1744,
+              "hallucinations": 50
+            },
+            "guardrail_delta": 0.005565326299093204,
+            "guardrail_interval": [
+              -0.020063726586719254,
+              0.03119437918490566
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.0009124259925175071,
+            "primary_interval": [
+              -0.06090937531528552,
+              0.05908452333025051
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 1197,
+              "dials": 4839,
+              "engaged": 604,
+              "hallucinations": 12
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 3450,
+              "dials": 14268,
+              "engaged": 1744,
+              "hallucinations": 50
+            },
+            "guardrail_delta": 0.006692578273041094,
+            "guardrail_interval": [
+              -0.019025746105210916,
+              0.03241090265129311
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.025036686677581743,
+            "primary_interval": [
+              -0.03491628384081171,
+              0.0849896571959752
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 1195,
+              "dials": 4809,
+              "engaged": 634,
+              "hallucinations": 15
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 94,
+      "minute": 29992470,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0021",
+        "config_version_at_creation": 2,
+        "event_id": 271426,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 93,
+      "minute": 29992470,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0021",
+        "config_version_at_creation": 1,
+        "event_id": 270725,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 92,
+      "minute": 29992470,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0021",
+        "config_version_at_creation": 2,
+        "event_id": 269624,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-10T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 91,
+      "minute": 29991210,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2156,
+              "dials": 8370,
+              "engaged": 1153,
+              "hallucinations": 28
+            },
+            "guardrail_delta": -0.018532946560557262,
+            "guardrail_interval": [
+              -0.05191835451223989,
+              0.014852461391125366
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.022231250496707378,
+            "primary_interval": [
+              -0.10096651188662374,
+              0.056504010893208986
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 677,
+              "dials": 2832,
+              "engaged": 347,
+              "hallucinations": 16
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2156,
+              "dials": 8370,
+              "engaged": 1153,
+              "hallucinations": 28
+            },
+            "guardrail_delta": 0.01223756483314109,
+            "guardrail_interval": [
+              -0.022363056814505247,
+              0.04683818648078743
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.007766549559862557,
+            "primary_interval": [
+              -0.06773301011240687,
+              0.08326610923213199
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 752,
+              "dials": 2787,
+              "engaged": 408,
+              "hallucinations": 7
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2156,
+              "dials": 8370,
+              "engaged": 1153,
+              "hallucinations": 28
+            },
+            "guardrail_delta": 0.008866600617900233,
+            "guardrail_interval": [
+              -0.025518937534650593,
+              0.04325213877045106
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.008751928978898316,
+            "primary_interval": [
+              -0.08449099233385862,
+              0.06698713437606199
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 749,
+              "dials": 2811,
+              "engaged": 394,
+              "hallucinations": 15
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 90,
+      "minute": 29991210,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2911,
+              "dials": 11908,
+              "engaged": 1456,
+              "hallucinations": 38
+            },
+            "guardrail_delta": -0.004743292233972823,
+            "guardrail_interval": [
+              -0.03254942259461175,
+              0.023062838126666103
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.005480858479531281,
+            "primary_interval": [
+              -0.06075011702136182,
+              0.07171183398042438
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 973,
+              "dials": 4059,
+              "engaged": 492,
+              "hallucinations": 15
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2911,
+              "dials": 11908,
+              "engaged": 1456,
+              "hallucinations": 38
+            },
+            "guardrail_delta": 0.0029344447520408545,
+            "guardrail_interval": [
+              -0.025179656476722236,
+              0.031048545980803945
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.012880446554338287,
+            "primary_interval": [
+              -0.05276138630905744,
+              0.07852227941773401
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 996,
+              "dials": 4026,
+              "engaged": 511,
+              "hallucinations": 12
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2911,
+              "dials": 11908,
+              "engaged": 1456,
+              "hallucinations": 38
+            },
+            "guardrail_delta": 0.0023605608223901675,
+            "guardrail_interval": [
+              -0.02578696646561307,
+              0.030508088110393405
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.026622979882798714,
+            "primary_interval": [
+              -0.03913793563306289,
+              0.09238389539866032
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 989,
+              "dials": 4007,
+              "engaged": 521,
+              "hallucinations": 11
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 89,
+      "minute": 29991030,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0020",
+        "config_version_at_creation": 2,
+        "event_id": 257723,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 88,
+      "minute": 29991030,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0020",
+        "config_version_at_creation": 1,
+        "event_id": 257022,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 87,
+      "minute": 29991030,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0020",
+        "config_version_at_creation": 2,
+        "event_id": 255921,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-09T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 86,
+      "minute": 29989770,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1703,
+              "dials": 6599,
+              "engaged": 910,
+              "hallucinations": 18
+            },
+            "guardrail_delta": -0.017379122893004306,
+            "guardrail_interval": [
+              -0.05524430972029997,
+              0.02048606393429136
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.017370012962696246,
+            "primary_interval": [
+              -0.1062461599247506,
+              0.07150613399935811
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 530,
+              "dials": 2202,
+              "engaged": 274,
+              "hallucinations": 14
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1703,
+              "dials": 6599,
+              "engaged": 910,
+              "hallucinations": 18
+            },
+            "guardrail_delta": 0.012388293186943178,
+            "guardrail_interval": [
+              -0.026841127757084443,
+              0.0516177141309708
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.010948000260977309,
+            "primary_interval": [
+              -0.07445495754750026,
+              0.09635095806945487
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 585,
+              "dials": 2163,
+              "engaged": 319,
+              "hallucinations": 7
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1703,
+              "dials": 6599,
+              "engaged": 910,
+              "hallucinations": 18
+            },
+            "guardrail_delta": 0.00668909286141639,
+            "guardrail_interval": [
+              -0.031855327023594115,
+              0.045233512746426896
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.012391685578708511,
+            "primary_interval": [
+              -0.09761695924945044,
+              0.07283358809203341
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 592,
+              "dials": 2236,
+              "engaged": 309,
+              "hallucinations": 13
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 85,
+      "minute": 29989770,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2348,
+              "dials": 9552,
+              "engaged": 1157,
+              "hallucinations": 30
+            },
+            "guardrail_delta": -0.006768570608687519,
+            "guardrail_interval": [
+              -0.037783465782720516,
+              0.02424632456534548
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.0008299480190451236,
+            "primary_interval": [
+              -0.07308270369499033,
+              0.07474259973308058
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 780,
+              "dials": 3263,
+              "engaged": 385,
+              "hallucinations": 12
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2348,
+              "dials": 9552,
+              "engaged": 1157,
+              "hallucinations": 30
+            },
+            "guardrail_delta": 0.0028498646838220065,
+            "guardrail_interval": [
+              -0.02878996074910501,
+              0.034489690116749024
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.021164255062212867,
+            "primary_interval": [
+              -0.05237962235573926,
+              0.09470813248016499
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 790,
+              "dials": 3177,
+              "engaged": 406,
+              "hallucinations": 9
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 2348,
+              "dials": 9552,
+              "engaged": 1157,
+              "hallucinations": 30
+            },
+            "guardrail_delta": -0.0007999264819525675,
+            "guardrail_interval": [
+              -0.03220751207064594,
+              0.030607659106740806
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.019962850739734028,
+            "primary_interval": [
+              -0.053724424681997465,
+              0.09365012616146552
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 786,
+              "dials": 3208,
+              "engaged": 403,
+              "hallucinations": 9
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 84,
+      "minute": 29989590,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0019",
+        "config_version_at_creation": 2,
+        "event_id": 244020,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 83,
+      "minute": 29989590,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0019",
+        "config_version_at_creation": 1,
+        "event_id": 243319,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 82,
+      "minute": 29989590,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0019",
+        "config_version_at_creation": 2,
+        "event_id": 242218,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-08T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 81,
+      "minute": 29988330,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1236,
+              "dials": 4802,
+              "engaged": 650,
+              "hallucinations": 12
+            },
+            "guardrail_delta": -0.01262420514386181,
+            "guardrail_interval": [
+              -0.05745887237060675,
+              0.032210462082883126
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.01811794691215185,
+            "primary_interval": [
+              -0.12236509693652353,
+              0.08612920311221983
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 386,
+              "dials": 1577,
+              "engaged": 196,
+              "hallucinations": 11
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1236,
+              "dials": 4802,
+              "engaged": 650,
+              "hallucinations": 12
+            },
+            "guardrail_delta": 0.0058968029529076205,
+            "guardrail_interval": [
+              -0.039515933416318434,
+              0.051309539322133675
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.008551837588112732,
+            "primary_interval": [
+              -0.09216828909322254,
+              0.109271964269448
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 421,
+              "dials": 1599,
+              "engaged": 225,
+              "hallucinations": 6
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1236,
+              "dials": 4802,
+              "engaged": 650,
+              "hallucinations": 12
+            },
+            "guardrail_delta": 0.007712055858353273,
+            "guardrail_interval": [
+              -0.03753211102454837,
+              0.052956222741254916
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.00434259050199437,
+            "primary_interval": [
+              -0.09562893688502881,
+              0.10431411788901755
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 430,
+              "dials": 1622,
+              "engaged": 228,
+              "hallucinations": 11
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 80,
+      "minute": 29988330,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1743,
+              "dials": 7127,
+              "engaged": 846,
+              "hallucinations": 21
+            },
+            "guardrail_delta": -0.005990355525915481,
+            "guardrail_interval": [
+              -0.04154481544716822,
+              0.029564104395337257
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.00202490634808139,
+            "primary_interval": [
+              -0.08287066897900196,
+              0.08692048167516474
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 595,
+              "dials": 2494,
+              "engaged": 290,
+              "hallucinations": 8
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1743,
+              "dials": 7127,
+              "engaged": 846,
+              "hallucinations": 21
+            },
+            "guardrail_delta": 0.005856533383305579,
+            "guardrail_interval": [
+              -0.030744306976983292,
+              0.04245737374359445
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.008767301798723981,
+            "primary_interval": [
+              -0.07603787200011307,
+              0.09357247559756103
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 597,
+              "dials": 2384,
+              "engaged": 295,
+              "hallucinations": 8
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1743,
+              "dials": 7127,
+              "engaged": 846,
+              "hallucinations": 21
+            },
+            "guardrail_delta": 0.0022011621540948267,
+            "guardrail_interval": [
+              -0.034201844453042134,
+              0.03860416876123179
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.018860066808204567,
+            "primary_interval": [
+              -0.06626730492194097,
+              0.1039874385383501
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 591,
+              "dials": 2395,
+              "engaged": 298,
+              "hallucinations": 7
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 79,
+      "minute": 29988150,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0018",
+        "config_version_at_creation": 2,
+        "event_id": 230317,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-07T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 78,
+      "minute": 29988150,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0018",
+        "config_version_at_creation": 1,
+        "event_id": 229616,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-07T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    },
+    {
+      "id": 77,
+      "minute": 29988150,
+      "wid": "nw_renewal",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_renewal:c0018",
+        "config_version_at_creation": 2,
+        "event_id": 228515,
+        "leads": 1100,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-07T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_renewal"
+      }
+    },
+    {
+      "id": 76,
+      "minute": 29986890,
+      "wid": "nw_renewal",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 773,
+              "dials": 2954,
+              "engaged": 399,
+              "hallucinations": 6
+            },
+            "guardrail_delta": -0.014154326739376721,
+            "guardrail_interval": [
+              -0.07071046240598208,
+              0.04240180892722864
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.003829236739974151,
+            "primary_interval": [
+              -0.12621223038578777,
+              0.13387070386573607
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 250,
+              "dials": 1010,
+              "engaged": 130,
+              "hallucinations": 6
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 773,
+              "dials": 2954,
+              "engaged": 399,
+              "hallucinations": 6
+            },
+            "guardrail_delta": 0.013078202338773826,
+            "guardrail_interval": [
+              -0.044489400491552304,
+              0.07064580516909996
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.003263865715239178,
+            "primary_interval": [
+              -0.12092122065434693,
+              0.1274489520848253
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 283,
+              "dials": 1030,
+              "engaged": 147,
+              "hallucinations": 2
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 773,
+              "dials": 2954,
+              "engaged": 399,
+              "hallucinations": 6
+            },
+            "guardrail_delta": -0.0022357392543856935,
+            "guardrail_interval": [
+              -0.05952965118680097,
+              0.055058172678029586
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.006592219198723215,
+            "primary_interval": [
+              -0.13460512650965864,
+              0.12142068811221221
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 261,
+              "dials": 1006,
+              "engaged": 133,
+              "hallucinations": 9
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 75,
+      "minute": 29986890,
+      "wid": "ks_cancel",
+      "kind": "experiment_look",
+      "data": {
+        "cohort": "default",
+        "comparisons": {
+          "V2": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1141,
+              "dials": 4717,
+              "engaged": 559,
+              "hallucinations": 17
+            },
+            "guardrail_delta": -0.012402328511970151,
+            "guardrail_interval": [
+              -0.05533847827853474,
+              0.03053382125459444
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": -0.008055836848869069,
+            "primary_interval": [
+              -0.11331699393981992,
+              0.09720532024208178
+            ],
+            "treatment": {
+              "arm": "V2",
+              "connected": 386,
+              "dials": 1682,
+              "engaged": 186,
+              "hallucinations": 4
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V3": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1141,
+              "dials": 4717,
+              "engaged": 559,
+              "hallucinations": 17
+            },
+            "guardrail_delta": 0.01479013599172449,
+            "guardrail_interval": [
+              -0.030105259702804886,
+              0.059685531686253866
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.011289531930064323,
+            "primary_interval": [
+              -0.09141820221155884,
+              0.11399726607168749
+            ],
+            "treatment": {
+              "arm": "V3",
+              "connected": 413,
+              "dials": 1609,
+              "engaged": 207,
+              "hallucinations": 4
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          },
+          "V4": {
+            "comparisons": 144,
+            "control": {
+              "arm": "V1",
+              "connected": 1141,
+              "dials": 4717,
+              "engaged": 559,
+              "hallucinations": 17
+            },
+            "guardrail_delta": 0.006852686157094556,
+            "guardrail_interval": [
+              -0.03787199889204275,
+              0.05157737120623186
+            ],
+            "minimum_sample_met": true,
+            "primary_delta": 0.010078878177037676,
+            "primary_interval": [
+              -0.09423537504953224,
+              0.11439313140360759
+            ],
+            "treatment": {
+              "arm": "V4",
+              "connected": 396,
+              "dials": 1592,
+              "engaged": 198,
+              "hallucinations": 6
+            },
+            "winner": false,
+            "z": 3.5772543873072213
+          }
+        },
+        "phase": "explore"
+      }
+    },
+    {
+      "id": 74,
+      "minute": 29986710,
+      "wid": "ks_cancel",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "ks_cancel:c0017",
+        "config_version_at_creation": 2,
+        "event_id": 216614,
+        "leads": 1500,
+        "tenant_id": "kestrel_finance",
+        "ts": "2027-01-06T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "ks_cancel"
+      }
+    },
+    {
+      "id": 73,
+      "minute": 29986710,
+      "wid": "nw_kyc",
+      "kind": "campaign_created",
+      "data": {
+        "campaign_id": "nw_kyc:c0017",
+        "config_version_at_creation": 1,
+        "event_id": 215913,
+        "leads": 700,
+        "tenant_id": "northwind_life",
+        "ts": "2027-01-06T08:00:00+05:30",
+        "type": "campaign_created",
+        "workflow_id": "nw_kyc"
+      }
+    }
+  ]
+}

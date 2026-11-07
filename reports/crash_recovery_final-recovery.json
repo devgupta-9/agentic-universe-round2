@@ -1,0 +1,45 @@
+{
+  "method": "os._exit(91) immediately after successful HTTP apply, before local receipt commit",
+  "exit_code": 91,
+  "sim_state_before_restart": {
+    "scenario": "public_01_dev",
+    "sim_minute": 780,
+    "ts": "2027-01-04T13:00:00+05:30",
+    "end_minute": 11520,
+    "finished": false,
+    "tick_minutes": 15,
+    "credits_remaining": 200.0,
+    "chunks": 6,
+    "last_event_id": 194106
+  },
+  "local_outbox_before_restart": [
+    [
+      "c0abb52c-9155-46db-96fa-05412aaec0eb",
+      "nw_renewal",
+      "pending"
+    ],
+    [
+      "68930547-e489-4882-91e1-4e04a68f5036",
+      "ks_cancel",
+      "pending"
+    ]
+  ],
+  "remote_changes_before_local_receipt": [
+    {
+      "version": 2,
+      "actor": "controller_approved",
+      "changed_dims": [
+        "voice"
+      ],
+      "applied_at": "2027-01-04T13:00:00+05:30",
+      "proposal_id": "c0abb52c-9155-46db-96fa-05412aaec0eb",
+      "approval_id": "apr_00001"
+    }
+  ],
+  "finished": true,
+  "call_rows": 224358,
+  "metric_dials": 224358,
+  "last_event_id_matches_server": true,
+  "duplicate_remote_applications": [],
+  "database": "D:\\agentic-universe\\sde-assignment-2026\\state\\crash_recovery_final-c2f995cc00.sqlite3"
+}
