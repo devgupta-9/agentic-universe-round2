@@ -3,7 +3,7 @@ import json
 import os
 import uuid
 from .client import APIError, UncertainWrite
-from .evidence import auto_check, changed_dimensions
+from .evidence import auto_check, changed_dimensions, effective
 from .store import encode
 
 
@@ -57,10 +57,19 @@ class Governance:
             affected = 0
             scope = "new campaigns only; unknown future uploads, zero currently affected leads"
         pid = str(uuid.uuid4())
+        diff = {}
+        for dimension in dimensions:
+            if dimension in ("voice", "welcome_message", "caller_id"):
+                cohorts = set(current["config"]["allocations"]) | set(target["allocations"]) | {"default"}
+                before = {c: effective(current["config"], c, dimension) for c in sorted(cohorts)}
+                after = {c: effective(target, c, dimension) for c in sorted(cohorts)}
+            else:
+                before, after = current["config"].get(dimension), target.get(dimension)
+            diff[dimension] = {"before": before, "after": after}
         local = dict(data, kind=kind, reason=reason, before_config=current["config"], policy_check=check)
         score = max(0.0, min(1.0, data.get("expected_primary_delta", 0) or 0))
         body = {"proposal_id": pid, "workflow_id": wid, "base_version": current["version"],
-                "proposed_config": target, "change_summary": reason, "diff": {key: "changed" for key in dimensions},
+                "proposed_config": target, "change_summary": reason, "diff": diff,
                 "affected_leads": affected, "dry_run": {"scope": scope, "affected_leads": affected,
                     "observed_evidence": data, "policy_check": check,
                     "limitation": "Observed comparisons only; untried options have no counterfactual estimate"},

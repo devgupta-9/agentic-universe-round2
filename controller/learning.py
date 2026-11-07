@@ -14,6 +14,7 @@ class Learning:
         days = max(1, math.ceil((end - origin) / 1440))
         self.looks = days * max(1, len(workflows))
         self.incident_z = NormalDist().inv_cdf(1 - .01 / (2 * self.looks * 24))
+        self.qa_z = NormalDist().inv_cdf(.999)  # An alert opens validation + human review; it is not a winner or apply.
         self.incidents = Incidents(store, api, workflows)
 
     def initialize(self, workflow, current, now):
@@ -83,12 +84,12 @@ class Learning:
         recent = self.store.counts(wid, max(self.origin, now - 180), now,
                                     prompt_version=current["config"]["prompt_version"])[0]
         historical = self.store.get("baseline:" + wid, {"counts": {"connected": 0, "hallucinations": 0}})["counts"]
-        lo = interval(recent["hallucinations"], recent["connected"], self.incident_z)[0]
-        hi = interval(historical["hallucinations"], historical["connected"], self.incident_z)[1]
+        lo = interval(recent["hallucinations"], recent["connected"], self.qa_z)[0]
+        hi = interval(historical["hallucinations"], historical["connected"], self.qa_z)[1]
         if not historical["connected"]:
             hi = .10  # Explicit absolute fallback when there is no usable historical reference.
         alarm = recent["connected"] >= 200 and recent["hallucinations"] / recent["connected"] > .06 and lo > hi + .01
-        return {"alarm": alarm, "recent": recent, "historical": historical, "z": self.incident_z}
+        return {"alarm": alarm, "recent": recent, "historical": historical, "z": self.qa_z}
 
     def check_prompt(self, workflow, current, now):
         wid = workflow["workflow_id"]

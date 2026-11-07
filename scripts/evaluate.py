@@ -48,6 +48,8 @@ def main():
     parser.add_argument("--crash", choices=["after-apply"])
     parser.add_argument("--bash", action="store_true")
     parser.add_argument("--no-grade", action="store_true")
+    parser.add_argument("--startup-timeout", type=int, default=300,
+                        help="Bound for simulator history generation, reported separately from controller time")
     args = parser.parse_args()
     if not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", args.name):
         parser.error("Use a simple report name containing letters, digits, underscores, or hyphens")
@@ -78,7 +80,8 @@ def main():
                                   "--run-dir", str(world_path), "--port", str(port)], cwd=ROOT,
                                   stdout=server_log, stderr=subprocess.STDOUT, **flags)
         print(json.dumps({"phase": "server_start", "url": url}), flush=True)
-        deadline = time.monotonic() + 300
+        deadline = time.monotonic() + args.startup_timeout
+        next_telemetry = time.monotonic() + 30
         while True:
             if server.poll() is not None:
                 raise RuntimeError("Simulator exited during startup; inspect " + str(work / "server.log"))
@@ -88,7 +91,11 @@ def main():
             except OSError:
                 pass
             if time.monotonic() > deadline:
-                raise TimeoutError("Simulator did not become healthy within 300 seconds")
+                raise TimeoutError(f"Simulator did not become healthy within {args.startup_timeout} seconds")
+            if time.monotonic() >= next_telemetry:
+                print(json.dumps({"phase": "simulator_history_generation", "elapsed_seconds": round(time.perf_counter() - started, 1),
+                                  "server_pid": server.pid, "controller_started": False}), flush=True)
+                next_telemetry = time.monotonic() + 30
             time.sleep(.2)
         startup_seconds = time.perf_counter() - started
         launch = python + ["-m", "controller", "run", "--url", url, "--db", str(db_path)]

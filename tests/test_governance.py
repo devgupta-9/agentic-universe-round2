@@ -42,6 +42,7 @@ def test_remote_success_with_lost_response_reconciles_after_restart(tmp_path):
     with Store(path) as store:
         gov = Governance(store, api)
         pid = gov.propose(WF, api.current, target, 1000, "timing", "schedule", {})
+        assert gov.operation(pid)["body"]["diff"]["schedule"] == {"before": {}, "after": target["schedule"]}
         gov.tick({"wf": WF}, 1000)
         assert gov.operation(pid)["state"] == "uncertain"
     with Store(path) as store:
