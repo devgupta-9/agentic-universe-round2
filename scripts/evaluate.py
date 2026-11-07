@@ -45,6 +45,7 @@ def main():
     parser.add_argument("--name", required=True)
     parser.add_argument("--root", default="runs")
     parser.add_argument("--baseline")
+    parser.add_argument("--state-root", help="Optional persistent database directory; useful for explicit SSD/HDD benchmarks")
     parser.add_argument("--crash", choices=["after-apply"])
     parser.add_argument("--bash", action="store_true")
     parser.add_argument("--no-grade", action="store_true")
@@ -58,7 +59,7 @@ def main():
     work.mkdir(parents=True, exist_ok=False)
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
-    db_path = ROOT / "state" / (run_id + ".sqlite3")
+    db_path = (Path(args.state_root).resolve() if args.state_root else ROOT / "state") / (run_id + ".sqlite3")
     world_path = work / "world"
     baseline_path = Path(args.baseline).resolve() if args.baseline else work / "baseline"
     python = [sys.executable, "-X", "utf8"]

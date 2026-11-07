@@ -26,6 +26,7 @@ class Store:
             PRAGMA journal_mode=WAL;
             PRAGMA synchronous=FULL;
             PRAGMA busy_timeout=30000;
+            PRAGMA cache_size=-131072;
             CREATE TABLE IF NOT EXISTS kv(key TEXT PRIMARY KEY, value TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS chunks(id INTEGER PRIMARY KEY,kind TEXT,n INTEGER,seconds REAL);
             CREATE TABLE IF NOT EXISTS leads(

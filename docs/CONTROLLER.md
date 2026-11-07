@@ -71,3 +71,7 @@ The harness creates unique run directories; it never deletes an existing run. It
 ## What changed during development
 
 The first uncommitted integrated experiment allocated 50% of traffic to alternatives and restarted optimization after a supervisor edit. The incident grader classified two exploratory changes as harmful. We retained those reports under `reports/initial/`, reduced unknown exposure to at most 20%, used exactly representable weights to avoid normalization drift, and stopped voice exploration after a material supervisor voice edit. We did not weaken the winner or guardrail tests to force a promotion.
+
+## Storage measurements
+
+SQLite uses a 128 MiB page-cache budget and keeps WAL/FULL durability. The scale investigation found severe random-IO stalls on the D: SATA HDD with the small default cache. The successful scale measurement records its temporary database on the C: SATA SSD, while code and simulator files remain on D:. Use the evaluation harness --state-root option to choose a durable volume explicitly; this is a benchmark storage choice, not an external database service.
