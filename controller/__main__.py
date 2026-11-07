@@ -63,9 +63,16 @@ def explain(store, wid, at=None):
                            (wid, until)).fetchone()
     if not row:
         return {"workflow": wid, "decision": None, "message": "No recorded configuration change at or before that time"}
+    decision = json.loads(row["data"])
+    if row["kind"] == "config_changed" and decision.get("proposal_id"):
+        intent = store.db.execute("SELECT data,body,approval_id FROM proposals WHERE pid=?", (decision["proposal_id"],)).fetchone()
+        if intent:
+            metadata, body = json.loads(intent["data"]), json.loads(intent["body"])
+            decision.update(reason=metadata["reason"], kind=metadata["kind"], before=metadata["before_config"],
+                            after=body["proposed_config"], evidence=metadata, approval_id=intent["approval_id"])
     count = store.counts(wid, row["minute"], row["minute"] + 360)[0]
     return {"workflow": wid, "minute": row["minute"], "time_utc": datetime.fromtimestamp(row["minute"] * 60, timezone.utc).isoformat(),
-            "decision": json.loads(row["data"]), "observed_next_six_hours": {
+            "decision": decision, "observed_next_six_hours": {
                 **count, "pickup_rate": rate(count, "pickup_rate"), "engagement_rate": rate(count, "engagement_rate"),
                 "limitation": "Descriptive follow-up; not a causal estimate"}}
 
