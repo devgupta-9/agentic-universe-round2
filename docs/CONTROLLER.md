@@ -2,6 +2,8 @@
 
 The provided simulator is unchanged. The implementation is in `controller/`. It uses HTTP, httpx, and a single-writer SQLite database. There is no real LLM account or additional stateful service to configure.
 
+For automated Ubuntu checks, crash-recovery verification, and repeatable Linux benchmarks, see [CI and Linux verification](CI.md).
+
 ## Run
 
 Install the supplied requirements in a Python 3.10+ environment. Start a fresh simulator in one terminal:

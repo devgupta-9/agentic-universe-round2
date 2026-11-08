@@ -1,0 +1,161 @@
+name: CI and Linux verification
+
+on:
+  push:
+    branches: [main, 'ci/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      full_load:
+        description: Run the full public load scenario
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  tests:
+    name: Tests (Python ${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-ci.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-ci.txt
+      - name: Validate shell, Python syntax, and fatal lint errors
+        run: |
+          test -x run.sh
+          bash -n run.sh
+          python -m compileall -q controller scripts
+          python -m ruff check --select E9,F63,F7,F82 controller scripts tests
+      - name: Record environment
+        run: |
+          mkdir -p ci-artifacts/unit
+          python --version > ci-artifacts/unit/python.txt
+          python -m pip freeze > ci-artifacts/unit/environment.txt
+      - name: Run the full test suite
+        run: python -m pytest -q tests --junitxml=ci-artifacts/unit/junit.xml
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: unit-python-${{ matrix.python }}
+          path: ci-artifacts/unit/
+          retention-days: 7
+          if-no-files-found: warn
+
+  integration:
+    name: Linux scenarios and recovery
+    needs: tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.10'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run public development scenario through run.sh
+        run: >-
+          python scripts/evaluate.py --scenario scenarios/public_01_dev.yaml
+          --name linux-public_01 --bash --root ci-artifacts/integration/runs
+          --state-root ci-artifacts/integration/state --report-root ci-artifacts/integration/reports
+      - name: Run public incidents scenario through run.sh
+        run: >-
+          python scripts/evaluate.py --scenario scenarios/public_02_incidents.yaml
+          --name linux-public_02 --bash --root ci-artifacts/integration/runs
+          --state-root ci-artifacts/integration/state --report-root ci-artifacts/integration/reports
+      - name: Hard-stop after remote apply and recover the same database
+        run: >-
+          python scripts/evaluate.py --scenario scenarios/public_01_dev.yaml
+          --name linux-recovery --crash after-apply --no-grade
+          --root ci-artifacts/integration/runs --state-root ci-artifacts/integration/state
+          --report-root ci-artifacts/integration/reports
+      - name: Verify Linux, source identity, completion, and integrity
+        run: >-
+          python scripts/verify_ci_reports.py --report-root ci-artifacts/integration/reports
+          --expected-commit "$GITHUB_SHA" --run linux-public_01 --run linux-public_02
+          --recovery linux-recovery --summary "$GITHUB_STEP_SUMMARY"
+      - name: Record dependency versions
+        if: always()
+        run: |
+          mkdir -p ci-artifacts/integration/reports
+          python -m pip freeze > ci-artifacts/integration/reports/environment.txt
+      - name: Upload scenario and recovery evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: linux-integration
+          path: ci-artifacts/integration/reports/
+          retention-days: 7
+          if-no-files-found: warn
+
+  load:
+    name: Linux load benchmark
+    needs: tests
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/ci/linux-verification') ||
+      (github.event_name == 'workflow_dispatch' && inputs.full_load)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.10'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run the full public load scenario
+        run: >-
+          python scripts/evaluate.py --scenario scenarios/public_03_load.yaml --name linux-public_03
+          --bash --startup-timeout 900 --root ci-artifacts/load/runs
+          --state-root ci-artifacts/load/state --report-root ci-artifacts/load/reports
+      - name: Verify the completed Linux load run
+        run: >-
+          python scripts/verify_ci_reports.py --report-root ci-artifacts/load/reports
+          --expected-commit "$GITHUB_SHA" --run linux-public_03 --summary "$GITHUB_STEP_SUMMARY"
+      - name: Record dependency versions
+        if: always()
+        run: |
+          mkdir -p ci-artifacts/load/reports
+          python -m pip freeze > ci-artifacts/load/reports/environment.txt
+      - name: Upload load evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: linux-load
+          path: ci-artifacts/load/reports/
+          retention-days: 7
+          if-no-files-found: warn
