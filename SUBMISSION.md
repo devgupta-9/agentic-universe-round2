@@ -1,6 +1,6 @@
 # Outcome-First Agent Loop — Submission
 
-**Project:** Outcome Ledger · **Name:** Debamalya Gupta · **Date:** 8 November 2026 · **Hours actually spent:** 3,automated execution times are recorded separately · **Language / storage:** Python 3.10 / SQLite WAL
+**Project:** Outcome Ledger · **Name:** Debamalya Gupta · **Date:** 8 November 2026 · **Hours actually spent:** 3 **Language / storage:** Python 3.10 / SQLite WAL · **Github:** debgupta-9 · **Email:** debamalya1@gmail.com
 
 ## 0. TL;DR
 HTTP-only observations, restartable SQLite ingestion, an approval outbox, bounded voice exploration, caller-ID quarantine, and validated prompt repair.
