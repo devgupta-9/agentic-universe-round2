@@ -1,0 +1,295 @@
+{
+  "run_id": 42464947413,
+  "run_url": "https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42464947413",
+  "source_commit": "45316650ff6e2724a02f099d20dc280a2d240999",
+  "run_attempt": 2,
+  "conclusion": "success",
+  "tests": [
+    {
+      "python": "3.10",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "python": "3.12",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13611940714,
+      "name": "linux-load",
+      "size_bytes": 14905,
+      "sha256": "db3dd488b8d0234630daaa4caecf08411aae8281e22db61e3dd078027d3df5e1"
+    },
+    {
+      "id": 13611431255,
+      "name": "unit-python-3.12",
+      "size_bytes": 1863,
+      "sha256": "1c3bcfdfbd160626399a9a0dd2a71119b6a5bb6be1b37024153afc2cce444dcf"
+    },
+    {
+      "id": 13611032262,
+      "name": "linux-integration",
+      "size_bytes": 30012,
+      "sha256": "3e7eaef1abbaa0b0c0aefebdc8cdccf35c684c14d93d899702bf153ccee6647c"
+    },
+    {
+      "id": 13610479779,
+      "name": "unit-python-3.10",
+      "size_bytes": 1886,
+      "sha256": "6d88fab6ed41cbd1ecdc61062a0a4e9cb2ba7521eb3025ab7d72a32de3cedecd"
+    }
+  ],
+  "pull_request_workflow": {
+    "id": 42465958611,
+    "html_url": "https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42465958611",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 2
+  },
+  "runs": [
+    {
+      "name": "linux-public_01",
+      "finished": true,
+      "evaluation": {
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "python": "3.10.22",
+        "logical_cpus": 2,
+        "physical_memory_bytes": 8317927424,
+        "source_commit": "45316650ff6e2724a02f099d20dc280a2d240999",
+        "linux_runtime_verified": true,
+        "target_linux_hardware_verified": false,
+        "server_start_seconds": 2.4228344180000008,
+        "controller_wall_seconds_including_restart": 7.2119970270000024,
+        "wall_seconds_per_simulated_day_including_history_ingest": 0.9014996283750003,
+        "entrypoint": "run.sh (native Linux)",
+        "call_rows": 224396,
+        "metric_dials": 224396,
+        "last_event_id_matches_server": true,
+        "duplicate_remote_applications": []
+      },
+      "performance": {
+        "decision_seconds": 1.0740797249999972,
+        "decision_ticks": 193,
+        "final_sim_minute": 11520,
+        "finished": true,
+        "max_decision_seconds": 0.017005053000005432,
+        "max_tick_seconds": 1.838984575000005,
+        "peak_memory_mb": 76.3359375,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 6.472081070999998
+      },
+      "ingestion": [
+        {
+          "kind": "events",
+          "events": 109628,
+          "seconds": 0.974993766999944,
+          "events_per_second": 112439.69316575774,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        },
+        {
+          "kind": "history",
+          "events": 187438,
+          "seconds": 1.3176279420000014,
+          "events_per_second": 142254.11743734847,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        }
+      ]
+    },
+    {
+      "name": "linux-public_02",
+      "finished": true,
+      "evaluation": {
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "python": "3.10.22",
+        "logical_cpus": 2,
+        "physical_memory_bytes": 8317927424,
+        "source_commit": "45316650ff6e2724a02f099d20dc280a2d240999",
+        "linux_runtime_verified": true,
+        "target_linux_hardware_verified": false,
+        "server_start_seconds": 2.220434607999998,
+        "controller_wall_seconds_including_restart": 8.513546917,
+        "wall_seconds_per_simulated_day_including_history_ingest": 0.8513546916999999,
+        "entrypoint": "run.sh (native Linux)",
+        "call_rows": 245050,
+        "metric_dials": 245050,
+        "last_event_id_matches_server": true,
+        "duplicate_remote_applications": []
+      },
+      "performance": {
+        "decision_seconds": 1.4767137520000801,
+        "decision_ticks": 241,
+        "final_sim_minute": 14400,
+        "finished": true,
+        "max_decision_seconds": 0.02564927099999892,
+        "max_tick_seconds": 2.0822813879999984,
+        "peak_memory_mb": 79.68359375,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 8.310436718999995
+      },
+      "ingestion": [
+        {
+          "kind": "events",
+          "events": 137040,
+          "seconds": 1.2256254440000163,
+          "events_per_second": 111812.30013693987,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        },
+        {
+          "kind": "history",
+          "events": 187292,
+          "seconds": 1.399820757999997,
+          "events_per_second": 133797.13004656014,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        }
+      ]
+    },
+    {
+      "name": "linux-public_03",
+      "finished": true,
+      "evaluation": {
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "python": "3.10.22",
+        "logical_cpus": 2,
+        "physical_memory_bytes": 8317927424,
+        "source_commit": "45316650ff6e2724a02f099d20dc280a2d240999",
+        "linux_runtime_verified": true,
+        "target_linux_hardware_verified": false,
+        "server_start_seconds": 75.918772795,
+        "controller_wall_seconds_including_restart": 275.239992118,
+        "wall_seconds_per_simulated_day_including_history_ingest": 55.04799842359999,
+        "entrypoint": "run.sh (native Linux)",
+        "call_rows": 7433295,
+        "metric_dials": 7433295,
+        "last_event_id_matches_server": true,
+        "duplicate_remote_applications": []
+      },
+      "performance": {
+        "decision_seconds": 4.117552144000399,
+        "decision_ticks": 121,
+        "final_sim_minute": 7200,
+        "finished": true,
+        "max_decision_seconds": 0.14454528999999638,
+        "max_tick_seconds": 107.988829705,
+        "peak_memory_mb": 185.99609375,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 274.88366747699996
+      },
+      "ingestion": [
+        {
+          "kind": "events",
+          "events": 4200078,
+          "seconds": 65.01557721500018,
+          "events_per_second": 64601.10299583669,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        },
+        {
+          "kind": "history",
+          "events": 5537379,
+          "seconds": 84.70156457300004,
+          "events_per_second": 65375.16783680672,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        }
+      ]
+    },
+    {
+      "name": "linux-recovery",
+      "finished": true,
+      "evaluation": {
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "python": "3.10.22",
+        "logical_cpus": 2,
+        "physical_memory_bytes": 8317927424,
+        "source_commit": "45316650ff6e2724a02f099d20dc280a2d240999",
+        "linux_runtime_verified": true,
+        "target_linux_hardware_verified": false,
+        "server_start_seconds": 2.21808901,
+        "controller_wall_seconds_including_restart": 8.119228225,
+        "wall_seconds_per_simulated_day_including_history_ingest": 1.014903528125,
+        "entrypoint": "Python module",
+        "call_rows": 224396,
+        "metric_dials": 224396,
+        "last_event_id_matches_server": true,
+        "duplicate_remote_applications": []
+      },
+      "performance": {
+        "decision_seconds": 1.12645939300009,
+        "decision_ticks": 193,
+        "final_sim_minute": 11520,
+        "finished": true,
+        "max_decision_seconds": 0.02254245400000343,
+        "max_tick_seconds": 1.8828379469999987,
+        "peak_memory_mb": 62.2109375,
+        "simulated_decision_lag_minutes": 60,
+        "wall_seconds": 6.846107403000005
+      },
+      "ingestion": [
+        {
+          "kind": "events",
+          "events": 109628,
+          "seconds": 1.0648741860000825,
+          "events_per_second": 102949.25113340245,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        },
+        {
+          "kind": "history",
+          "events": 187438,
+          "seconds": 1.375973927000004,
+          "events_per_second": 136222.05793438663,
+          "timing_scope": "Streaming, parsing and SQL writes before COMMIT; final commit/checkpoint latency is excluded"
+        }
+      ]
+    }
+  ],
+  "recovery": {
+    "method": "os._exit(91) immediately after successful HTTP apply, before local receipt commit",
+    "exit_code": 91,
+    "sim_state_before_restart": {
+      "scenario": "public_01_dev",
+      "sim_minute": 840,
+      "ts": "2027-01-04T14:00:00+05:30",
+      "end_minute": 11520,
+      "finished": false,
+      "tick_minutes": 15,
+      "credits_remaining": 200.0,
+      "chunks": 7,
+      "last_event_id": 195044
+    },
+    "local_outbox_before_restart": [
+      [
+        "3c8d1dd2-506a-4daa-9cdc-44ef165a84fa",
+        "nw_renewal",
+        "pending"
+      ],
+      [
+        "bccb781e-7e1c-41a0-8618-dc1531304ed5",
+        "ks_cancel",
+        "pending"
+      ]
+    ],
+    "remote_changes_before_local_receipt": [
+      {
+        "version": 2,
+        "actor": "controller_approved",
+        "changed_dims": [
+          "voice"
+        ],
+        "applied_at": "2027-01-04T14:00:00+05:30",
+        "proposal_id": "3c8d1dd2-506a-4daa-9cdc-44ef165a84fa",
+        "approval_id": "apr_00001"
+      }
+    ],
+    "finished": true,
+    "call_rows": 224396,
+    "metric_dials": 224396,
+    "last_event_id_matches_server": true,
+    "duplicate_remote_applications": [],
+    "database": "/home/runner/work/agentic-universe-round2/agentic-universe-round2/ci-artifacts/integration/state/linux-recovery-ce60cec8ff.sqlite3"
+  }
+}

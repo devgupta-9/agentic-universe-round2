@@ -1,6 +1,19 @@
 # Final verification record
 
-Date: 8 November 2026. Main work was performed locally in the `feature/outcome-controller` branch. No remote publication, form submission, or client communication was performed.
+Date: 8 November 2026. The records below distinguish the original local Windows work from the subsequent hosted Ubuntu verification. Source has been pushed to the candidate's repository. No form submission or client communication was performed by the agent.
+
+## Hosted Ubuntu verification
+
+- [Completed workflow](https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42464947413), source `45316650ff6e2724a02f099d20dc280a2d240999`: **40 tests passed on Python 3.10 and 40 on Python 3.12**, with no failures, errors, or skips. Native shell entrypoint, Bash/Python syntax, and fatal lint checks passed.
+- `public_01`, `public_02`, and `public_03` completed through native `./run.sh`. Aggregate conclusion-rate lifts were **-0.6%, +4.4%, and +0.9%**, respectively. No applied change was classified as harmful in these three Linux grade reports; this does not erase the aggregate development-scenario decline or individual workflow declines.
+- Load: **9,737,457 events**, **275.2 seconds** of controller wall time including history ingestion, **35,378 events/sec**, and **186.0 MiB** peak controller RSS. Simulator startup, including history generation, took **75.9 seconds** separately. Runner: **2 logical CPUs / 7.75 GiB measured physical RAM**, Ubuntu 24.04, Python 3.10.22. Baseline generation is outside controller timing.
+- Integrity: **7,433,295 call rows = metric dials**, matching server event checkpoint, and no duplicate remote applications. The after-apply hard stop exited 91, exposed an applied-but-locally-unrecorded proposal, and completed after restarting with the same database.
+- Initial interpreter downloads returned HTTP 504. Failed-job retries succeeded without changing application code. The [pull-request workflow](https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42465958611) also passed; its optional load job was skipped as designed.
+- [Linux evidence](linux/README.md) records the tested revision, measured host, complete-loop timing, supplied grader reports, and exact dependency versions. The evaluator's exact hardware and hidden scenarios remain untested. These independent Windows/Linux runs are not a controlled OS performance comparison.
+
+## Original local Windows record
+
+The following results were measured on the earlier `feature/outcome-controller` implementation. They remain historical evidence; the current suite adds nine CI report cases to the original 31 tests.
 
 - Full test suite: **31 tests passed**. Tests cover atomic chunk rollback after a real batch flush, replay/reopen, KPI sample/guardrail checks, policy limits, stricter client preferences, uncertain writes, supervisor races, paid-receipt recovery, alert detection, governed decay rollback, and historical `why` queries before local receipt reconciliation.
 - `public_01`: completed through Bash `run.sh`; conclusion-rate lift +1.3% in the supplied grader; two neutral applied changes.
@@ -16,4 +29,4 @@ Date: 8 November 2026. Main work was performed locally in the `feature/outcome-c
 
 Runtime JSON labels for the small scenarios were refreshed using the same completed audit databases; their original measured timings were retained. The default database directory can be changed with `CONTROLLER_DB`, or `--state-root` in the evaluation harness. Raw database files and simulator runs are local scratch evidence, excluded from the source archive.
 
-Known limits are in `SUBMISSION.md`: default-cohort scope, call-level approximate inference, limited counterfactual dry run, incomplete proactive approval forecasting, limited automated post-fix performance repair, and unverified target Linux execution. A passing public run is not a promise about hidden or production outcomes.
+Known limits are in `SUBMISSION.md`: default-cohort scope, call-level approximate inference, limited counterfactual dry run, incomplete proactive approval forecasting, limited automated post-fix performance repair, and unverified execution on the evaluator's exact hardware. Hosted Ubuntu execution is now verified as recorded above. A passing public run is not a promise about hidden or production outcomes.

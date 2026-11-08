@@ -39,6 +39,18 @@ def wait(process, timeout=2400):
     return process.returncode
 
 
+def host_evidence():
+    memory = None
+    if hasattr(os, "sysconf"):
+        memory = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True)
+    return {"platform": platform.platform(), "python": platform.python_version(),
+            "logical_cpus": os.cpu_count(), "physical_memory_bytes": memory,
+            "source_commit": revision.stdout.strip() if revision.returncode == 0 else None,
+            "linux_runtime_verified": sys.platform.startswith("linux"),
+            "target_linux_hardware_verified": False}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scenario", required=True)
@@ -46,6 +58,7 @@ def main():
     parser.add_argument("--root", default="runs")
     parser.add_argument("--baseline")
     parser.add_argument("--state-root", help="Optional persistent database directory; useful for explicit SSD/HDD benchmarks")
+    parser.add_argument("--report-root", help="Write generated evidence outside the committed reports directory")
     parser.add_argument("--crash", choices=["after-apply"])
     parser.add_argument("--bash", action="store_true")
     parser.add_argument("--no-grade", action="store_true")
@@ -57,8 +70,8 @@ def main():
     run_id = args.name + "-" + uuid.uuid4().hex[:10]
     work = (Path(args.root) / run_id).resolve()
     work.mkdir(parents=True, exist_ok=False)
-    reports = ROOT / "reports"
-    reports.mkdir(exist_ok=True)
+    reports = Path(args.report_root).resolve() if args.report_root else ROOT / "reports"
+    reports.mkdir(parents=True, exist_ok=True)
     db_path = (Path(args.state_root).resolve() if args.state_root else ROOT / "state") / (run_id + ".sqlite3")
     world_path = work / "world"
     baseline_path = Path(args.baseline).resolve() if args.baseline else work / "baseline"
@@ -106,7 +119,7 @@ def main():
             if not bash:
                 raise RuntimeError("Bash is unavailable")
             environment["PYTHON"], environment["CONTROLLER_DB"] = Path(sys.executable).as_posix(), db_path.as_posix()
-            launch = [bash, "./run.sh", url]
+            launch = [bash, "./run.sh", url] if os.name == "nt" else [str(ROOT / "run.sh"), url]
         if args.crash:
             if args.bash:
                 raise RuntimeError("The explicit after-apply failpoint uses the Python test entrypoint")
@@ -148,11 +161,10 @@ def main():
             high_water = json.loads(connection.execute("SELECT value FROM kv WHERE key='last_event_id'").fetchone()[0])
         if calls != totals or high_water != state["last_event_id"] or duplicate_remote:
             raise AssertionError("Observation/checkpoint/application integrity check failed")
-        snapshot["evaluation"] = {"platform": platform.platform(), "python": platform.python_version(),
-            "logical_cpus": os.cpu_count(), "target_linux_hardware_verified": False,
+        snapshot["evaluation"] = {**host_evidence(),
             "server_start_seconds": startup_seconds, "controller_wall_seconds_including_restart": controller_seconds,
             "wall_seconds_per_simulated_day_including_history_ingest": controller_seconds / (state["end_minute"] / 1440),
-            "entrypoint": "run.sh via Bash" if args.bash else "Python module",
+            "entrypoint": ("run.sh via Bash" if os.name == "nt" else "run.sh (native Linux)") if args.bash else "Python module",
             "call_rows": calls, "metric_dials": totals, "last_event_id_matches_server": True,
             "duplicate_remote_applications": duplicate_remote}
         (reports / (args.name + "-runtime.json")).write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
@@ -178,6 +190,7 @@ def main():
         server_log.close()
         controller_log.close()
         shutil.copyfile(work / "controller.log", reports / (args.name + "-controller.log"))
+        shutil.copyfile(work / "server.log", reports / (args.name + "-server.log"))
 
 
 if __name__ == "__main__":
