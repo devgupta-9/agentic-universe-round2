@@ -14,11 +14,15 @@ Every third-party action is pinned to a commit. Workflow permissions are read-on
 
 ## Review the evidence
 
+The [completed branch run](https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42464947413) verified source commit `45316650ff6e2724a02f099d20dc280a2d240999`: all 40 tests passed on each interpreter, all three public scenarios completed through native `run.sh`, and the after-apply recovery check passed. The [PR workflow](https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42465958611) also passed. [Committed Linux evidence](../reports/linux/README.md) preserves the measurements, dependency versions, and grader reports beyond the artifact-retention window.
+
 Open the workflow run for the branch commit and inspect each job. The integration and load job summaries show source revision, total events, complete-loop throughput, controller peak memory, and measured CPU count. Download `linux-integration` and `linux-load` for runtime JSON, supplied grader output, controller/server logs, dependency versions, recovery evidence, and `ci-verification.json`. Artifacts are retained for seven days; save them before expiry if needed.
 
 Generated evidence stays under ignored `ci-artifacts/`. The previously committed Windows results in `reports/` remain reproducible historical measurements. A failed scenario uploads the available logs even when verification cannot finish.
 
 An Ubuntu runner confirms Linux execution. Its CPU/RAM configuration is measured in each runtime report; it does not certify performance on the evaluator's exact 4-vCPU / 8-GB machine. Grade reports describe the measured outcomes; CI completion does not impose an outcome-lift threshold or promise hidden-scenario performance.
+
+The initial branch and PR attempts encountered HTTP 504 during the Python 3.10 interpreter download, before application tests began. Retrying failed jobs succeeded without changing code. If setup fails, inspect the failing step and retry an identified download outage; application test failures need investigation. The workflow does not bypass failed tests.
 
 ## Repeat locally on Linux
 

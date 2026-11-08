@@ -4,10 +4,10 @@
 
 ## 0. TL;DR
 HTTP-only observations, restartable SQLite ingestion, an approval outbox, bounded voice exploration, caller-ID quarantine, and validated prompt repair.
-Public_01/02 aggregate conclusion-rate lift: +1.3% / +6.7% in the provided grader; zero changes classified as harmful in either final run.
+Windows public_01/02 aggregate conclusion-rate lift: +1.3% / +6.7% in the provided grader; zero changes classified as harmful in either final Windows run. Separate Ubuntu runs measured -0.6% / +4.4%; public_03 measured +0.9%.
 The after-apply hard-stop/restart test completed with matching event checkpoints and no duplicate applications.
 Call-time optimization, welcome-message interactions, learned segmentation, and a tenant-fair scheduler are deliberately cut.
-Windows/Bash execution is verified; the exact Linux deployment environment is not.
+Windows/Bash and hosted Ubuntu execution are verified. Ubuntu CI passed all 40 tests on both Python 3.10 and 3.12, all three native run.sh scenarios, and after-apply recovery. The evaluator's exact hardware remains untested; see [Linux evidence](reports/linux/README.md).
 
 ## 1. Assumptions
 1. The HTTP API and observed workflow policy are authoritative. No controller module imports `sim`, opens simulator run files, or parses scenarios.
@@ -167,6 +167,8 @@ Final remaining credits: 194.0. The complete incident report is `reports/public_
 
 ## 8. Scale
 
+The first table preserves the original Windows measurements. The independent Ubuntu benchmark below verifies Linux execution on the measured hosted runner.
+
 | Measurement | Observed value |
 |---|---|
 | Actual host | Windows-10-10.0.19045-SP0; 4 logical CPUs; 7.88 GiB physical RAM |
@@ -186,7 +188,13 @@ The controller completed public_03. Per-chunk rates exclude final COMMIT/fsync/c
 
 At 10×, a single synchronous loop and repeated workflow/window scans become the first architectural limits. Normalized call storage and SQLite indexes grow continuously; retention and disk IO become important even though batches bound process memory. Partition by tenant/workflow with one writer/decision owner per workflow; move durable observations, proposal outbox, and leases into the existing Postgres estate with time partitioning. Keep cohort definitions and policy versioning shared. Do not introduce another service before profiling requires it.
 
+### Hosted Ubuntu benchmark
+
+The [verified run](https://github.com/devgupta-9/agentic-universe-round2/actions/runs/42464947413) tested commit `45316650ff6e2724a02f099d20dc280a2d240999` through native `./run.sh`: 9,737,457 events, 275.2 seconds of controller wall time including history ingestion, 35,378 events/sec, and 186.0 MiB peak controller RSS. Simulator startup, including history generation, took another 75.9 seconds; baseline generation is also outside the controller timing. The runner had 2 logical CPUs and 7.75 GiB measured RAM. All 7,433,295 call rows matched metric dials, the event checkpoint matched the server, and no remote applications were duplicated. This separate hosted-runner measurement does not establish a controlled speedup over Windows or certify the evaluator's exact machine. [Evidence and grader reports](reports/linux/README.md).
+
 ## 9. Reliability
+
+The Ubuntu workflow also exercises the after-apply hard stop and the full 40-test suite on Python 3.10 and 3.12. Nine CI report cases extend the original 31 tests to reject stale, incomplete, inconsistent, or non-Linux evidence. See [CI checks and reproduction commands](docs/CI.md).
 
 `scripts/evaluate.py --scenario scenarios/public_01_dev.yaml --name crash_recovery_final --crash after-apply --no-grade` exercises a hard `os._exit(91)` immediately after the server reports apply success and before the local receipt is committed. Restart uses the same database and still-running world. The recovery JSON captures the remotely applied proposal that was still active locally, final ledger equality, matching event high-water mark, and no duplicate remote applications.
 
